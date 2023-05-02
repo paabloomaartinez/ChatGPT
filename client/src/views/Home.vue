@@ -1,23 +1,9 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col v-for="user in users" :key="user._id">
-      </v-col>
-    </v-row>
-  </v-container>
+  <h1>Home Page</h1>
 </template>
 
 <script>
-import API from "../api";
 export default {
-  name: 'Home',
-  data() {
-    return {
-      users: []
-    }
-  },
-  async created() {
-    this.users = await API.getAllUsers()
-  }
+  name: 'Home'
 }
 </script>

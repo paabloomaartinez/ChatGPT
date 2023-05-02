@@ -14,7 +14,7 @@
       <router-view></router-view>
     </main>
     <footer>
-      <p>&copy; 2023 My App</p>
+      <p>&copy; 2023 ChatGPT - Learning Vue</p>
     </footer>
   </div>
 </template>
