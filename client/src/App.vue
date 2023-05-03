@@ -5,7 +5,6 @@
       <nav>
         <ul>
           <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
           <li><router-link to="/login">Login</router-link></li>
         </ul>
       </nav>
@@ -63,6 +62,10 @@ nav a {
   text-decoration: none;
 }
 
+nav li:hover {
+  text-decoration: underline;
+}
+
 main {
   flex: 1;
   padding: 1rem;
@@ -75,3 +78,4 @@ footer {
   text-align: center;
 }
 </style>
+
