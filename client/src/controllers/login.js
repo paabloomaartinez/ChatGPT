@@ -1,7 +1,7 @@
 import axios from 'axios'
-const url = ""
+const url = "/login"
 
-export default class API {
+export default class LOGIN {
     // to get all the users from the server
     static async getAllUsers() {
         const res = await axios.get(url)

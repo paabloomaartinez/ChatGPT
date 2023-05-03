@@ -17,7 +17,7 @@
   </template>
   
   <script>
-  import API from "../api"
+  import API from "../controllers/login"
   export default {
     name: 'LoginPage',
     data() {

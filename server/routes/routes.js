@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const API = require("../controllers/api")
+const LOGIN = require("../controllers/login")
 
-router.get("/", API.fetchAllUser)
-router.get("/:id", API.fetchUserByID)
-router.post("/", API.createUser)
-router.patch("/:id", API.updateUser)
-router.delete("/:id", API.deleteUser)
+// RUTAS PARA LOGIN
+router.get("/login/", LOGIN.fetchAllUser)
+router.get("/login/:id", LOGIN.fetchUserByID)
+router.post("/login/", LOGIN.createUser)
+router.patch("/login/:id", LOGIN.updateUser)
+router.delete("/login/:id", LOGIN.deleteUser)
 
 module.exports = router
