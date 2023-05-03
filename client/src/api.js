@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url = "/"
+const url = ""
 
 export default class API {
     // to get all the users from the server

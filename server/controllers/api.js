@@ -13,7 +13,12 @@ module.exports = class API {
 
     // fetch user by ID
     static async fetchUserByID(req, res) {
-        res.send("Fetch user by id")
+        try {
+            const user = await User.find(req.body.username)
+            res.status(200).json(user)
+        }catch (err) {
+            res.status(404).json({ message: err.message })
+        }
     }
 
     // create a user
