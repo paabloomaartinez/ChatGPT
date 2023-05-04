@@ -3,15 +3,16 @@
       <h1>Login</h1>
       <form>
         <label>
-          Username:
+          Nombre de usuario:
           <input type="text" v-model="username" required>
         </label>
         <label>
-          Password:
+          Contraseña:
           <input type="password" v-model="password" required>
         </label>
         <button type="submit" @click.prevent="login">Log In</button>
         <div v-if="error" class="error">{{ error }}</div>
+        <div>¿Aún no estás registrado? <router-link to="/register">Regístrate aquí</router-link></div>
       </form>
     </div>
   </template>

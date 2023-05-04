@@ -1,14 +1,14 @@
 <template>
   <div class="home-page">
-    <h1>Welcome to the Vue Learning App</h1>
-    <p>Here you will find exercises and tutorials to help you learn Vue.</p>
-    <p>Our app includes:</p>
+    <h1>Bienvenido a la aplicación de aprendizaje de Vue</h1>
+    <p>Aquí encontrarás ejercicios y tutoriales para ayudarte a aprender Vue</p>
+    <p>Nuestra aplicación incluye:</p>
     <ul>
-      <li>Interactive exercises to help you practice Vue concepts</li>
-      <li>Tutorials and guides to explain Vue features and best practices</li>
-      <li>A community forum where you can connect with other Vue learners</li>
+      <li>Ejercicios interactivos para ayudarte a practicar conceptos de Vue</li>
+      <li>Tutoriales y guías para explicar las características y las mejores prácticas de Vue</li>
+      <li>Un foro comunitario donde puedes conectarte con otros aprendices de Vue</li>
     </ul>
-    <p>As part of our commitment to providing the best learning experience possible, we are currently working on integrating ChatGPT with our exercise correction system. This will allow us to provide more personalized feedback to our users, based on their specific errors and mistakes.</p>
+    <p>Como parte de nuestro compromiso de proporcionar la mejor experiencia de aprendizaje posible, actualmente estamos trabajando en integrar ChatGPT con nuestro sistema de corrección de ejercicios. Esto nos permitirá brindar retroalimentación más personalizada a nuestros usuarios, basada en sus errores y equivocaciones específicos.</p>
   </div>
 </template>
 
