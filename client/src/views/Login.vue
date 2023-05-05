@@ -33,8 +33,7 @@
       async login() {
         this.user = await API.getUserById(this.username)
         console.log(this.user)
-        // You can replace this with your own authentication logic
-        if (this.username === this.user[0].username && this.password === this.user[0].password) {
+        if (this.username === this.user.username && this.password === this.user.password) {
           this.$router.push('/about');
         } else {
           this.error = 'Invalid username or password';

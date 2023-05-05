@@ -14,7 +14,7 @@ module.exports = class API {
     // fetch user by ID
     static async fetchUserByID(req, res) {
         try {
-            const user = await User.find(req.body.username)
+            const user = await User.findOne({'username':req.params.id})
             res.status(200).json(user)
         }catch (err) {
             res.status(404).json({ message: err.message })
