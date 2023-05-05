@@ -1,21 +1,21 @@
 <template>
     <div class="register-page">
-      <h1>Register</h1>
+      <h1>Registrarse</h1>
       <form>
         <label>
-          Username:
+          Nombre de usuario:
           <input type="text" v-model="username" required>
         </label>
         <label>
-          Email:
+          Correo Electrónico:
           <input type="email" v-model="email" required>
         </label>
         <label>
-          Password:
+          Contraseña:
           <input type="password" v-model="password" required>
         </label>
         <label>
-          Confirm Password:
+          Confirma la Contraseña:
           <input type="password" v-model="confirmPassword" required>
         </label>
         <button type="submit" @click.prevent="register">Register</button>
