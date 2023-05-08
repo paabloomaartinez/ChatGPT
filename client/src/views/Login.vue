@@ -34,7 +34,8 @@
         this.user = await API.getUserById(this.username)
         console.log(this.user)
         if (this.username === this.user.username && this.password === this.user.password) {
-          this.$router.push('/about');
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.$router.push('/userPage');
         } else {
           this.error = 'Invalid username or password';
         }
