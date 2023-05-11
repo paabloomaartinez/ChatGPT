@@ -20,8 +20,8 @@ mongoose.connect(process.env.DB_URI, {
     useFindAndModify: true,
     useCreateIndex: true
 })
-.then(() => console.log("Connected to the database!"))
-.catch((err) => console.log(err))
+    .then(() => console.log("Connected to the database!"))
+    .catch((err) => console.log(err))
 
 //routes prefix
 app.use('/', require("./routes/routes"))
