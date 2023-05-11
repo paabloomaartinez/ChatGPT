@@ -35,7 +35,7 @@
         console.log(this.user)
         if (this.username === this.user.username && this.password === this.user.password) {
           localStorage.setItem('user', JSON.stringify(this.user));
-          this.$router.push('/userPage');
+          this.$router.push('/login/ok');
         } else {
           this.error = 'Invalid username or password';
         }

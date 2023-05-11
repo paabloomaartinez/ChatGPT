@@ -21,13 +21,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.home-page {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-}
-</style>

@@ -21,10 +21,14 @@ const routes = [
     component: Register
   },
   {
+    path: '/login/ok',
+    redirect: '/userPage'
+  },
+  {
     path: '/userPage',
     name: 'userPage',
     component: BaseUser
-  }
+  },
 ]
 
 const router = createRouter({
@@ -32,4 +36,13 @@ const router = createRouter({
   routes
 })
 
+// Se registra un guardia de ruta para manejar el diseño personalizado
+router.beforeEach((to, from, next) => {
+  const layout = to.meta.layout || 'defaultLayout';
+  document.body.className = layout; // Establece el nombre de clase en el body según el diseño
+  
+  next();
+});
+
 export default router
+
