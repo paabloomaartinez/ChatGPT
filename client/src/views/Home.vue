@@ -1,14 +1,29 @@
 <template>
-  <div class="home-page">
-    <h1>Bienvenido a la aplicación de aprendizaje de Vue</h1>
-    <p>Aquí encontrarás ejercicios y tutoriales para ayudarte a aprender Vue</p>
-    <p>Nuestra aplicación incluye:</p>
-    <ul>
-      <li>Ejercicios interactivos para ayudarte a practicar conceptos de Vue</li>
-      <li>Tutoriales y guías para explicar las características y las mejores prácticas de Vue</li>
-      <li>Un foro comunitario donde puedes conectarte con otros aprendices de Vue</li>
-    </ul>
-    <p>Como parte de nuestro compromiso de proporcionar la mejor experiencia de aprendizaje posible, actualmente estamos trabajando en integrar ChatGPT con nuestro sistema de corrección de ejercicios. Esto nos permitirá brindar retroalimentación más personalizada a nuestros usuarios, basada en sus errores y equivocaciones específicos.</p>
+  <div class="base-wireframe">
+    <header>
+      <h1>ChatGPT - Learning Vue</h1>
+      <nav>
+        <ul>
+          <li><router-link to="/login">Login</router-link></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="home-page">
+        <h1>Bienvenido a la aplicación de aprendizaje de Vue</h1>
+        <p>Aquí encontrarás ejercicios y tutoriales para ayudarte a aprender Vue</p>
+        <p>Nuestra aplicación incluye:</p>
+        <ul>
+          <li>Ejercicios interactivos para ayudarte a practicar conceptos de Vue</li>
+          <li>Tutoriales y guías para explicar las características y las mejores prácticas de Vue</li>
+          <li>Un foro comunitario donde puedes conectarte con otros aprendices de Vue</li>
+        </ul>
+        <p>Como parte de nuestro compromiso de proporcionar la mejor experiencia de aprendizaje posible, actualmente estamos trabajando en integrar ChatGPT con nuestro sistema de corrección de ejercicios. Esto nos permitirá brindar retroalimentación más personalizada a nuestros usuarios, basada en sus errores y equivocaciones específicos.</p>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2023 ChatGPT - Learning Vue</p>
+    </footer>
   </div>
 </template>
 
@@ -19,11 +34,107 @@ export default {
 </script>
 
 <style scoped>
+
+.base-wireframe {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav li:not(:last-child) {
+  margin-right: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav li:hover {
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
 .home-page {
-  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav li:not(:last-child) {
+  margin-right: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav li:hover {
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
 }
 
 ul {

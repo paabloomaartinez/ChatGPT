@@ -1,21 +1,5 @@
 <template>
-  <div class="base-wireframe">
-    <header>
-      <h1>ChatGPT - Learning Vue</h1>
-      <nav>
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <router-view></router-view>
-    </main>
-    <footer>
-      <p>&copy; 2023 ChatGPT - Learning Vue</p>
-    </footer>
-  </div>
+    <router-view></router-view>
 </template>
 
 <script>
