@@ -10,7 +10,7 @@ module.exports = class API {
             })
             console.log(users)
             res.status(200).json(users)
-        }catch (err) {
+        } catch (err) {
             res.status(404).json({ message: err.message })
         }
     }
@@ -18,14 +18,14 @@ module.exports = class API {
     // fetch user by ID
     static fetchUserByID(req, res) {
         try {
-            const user = db.users.find({'username':req.params.id}, (err, docs) => {
-                if(err){
+            const user = db.users.find({ 'username': req.params.id }, (err, docs) => {
+                if (err) {
                     res.send(err)
-                }else{
+                } else {
                     res.status(200).json(docs)
                 }
             })
-        }catch (err) {
+        } catch (err) {
             res.status(404).json({ message: err.message })
         }
     }
@@ -35,9 +35,9 @@ module.exports = class API {
         const user = req.body
         try {
             db.users.insertOne(user)
-            res.status(201).json({message: 'User created successfully!'})
+            res.status(201).json({ message: 'User created successfully!' })
         } catch (err) {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         }
     }
 
