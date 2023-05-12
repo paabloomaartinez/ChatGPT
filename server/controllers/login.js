@@ -7,7 +7,7 @@ module.exports = class API {
             const users = await User.find()
             console.log(users)
             res.status(200).json(users)
-        }catch (err) {
+        } catch (err) {
             res.status(404).json({ message: err.message })
         }
     }
@@ -15,9 +15,9 @@ module.exports = class API {
     // fetch user by ID
     static async fetchUserByID(req, res) {
         try {
-            const user = await User.findOne({'username':req.params.id})
+            const user = await User.findOne({ 'username': req.params.id })
             res.status(200).json(user)
-        }catch (err) {
+        } catch (err) {
             res.status(404).json({ message: err.message })
         }
     }
@@ -27,9 +27,9 @@ module.exports = class API {
         const user = req.body
         try {
             await User.create(user)
-            res.status(201).json({message: 'User created successfully!'})
+            res.status(201).json({ message: 'User created successfully!' })
         } catch (err) {
-            res.status(400).json({message: err.message})
+            res.status(400).json({ message: err.message })
         }
     }
 
