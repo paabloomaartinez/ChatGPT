@@ -149,7 +149,6 @@ text-align: center;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  text-align: center;
 }
 
 .opciones {
