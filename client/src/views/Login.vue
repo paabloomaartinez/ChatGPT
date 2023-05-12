@@ -1,7 +1,7 @@
 <template>
     <div class="base-wireframe">
       <header>
-      <h1>ChatGPT - Learning Vue</h1>
+        <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
       <nav>
         <ul>
           <li><router-link to="/login">Login</router-link></li>
@@ -50,7 +50,7 @@
         console.log(this.user)
         if (this.username === this.user.username && this.password === this.user.password) {
           localStorage.setItem('user', JSON.stringify(this.user));
-          this.$router.push('/login/ok');
+          this.$router.push('/screening');
         } else {
           this.error = 'Invalid username or password';
         }
@@ -60,6 +60,15 @@
   </script>
   
   <style scoped>
+  .titulo {
+  text-decoration: none;
+  color: white;
+}
+
+.titulo-link {
+  text-decoration: none;
+  color: white;
+}
 
 .base-wireframe {
   display: flex;

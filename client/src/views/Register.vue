@@ -1,7 +1,7 @@
 <template>
     <div class="base-wireframe">
       <header>
-      <h1>ChatGPT - Learning Vue</h1>
+        <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
       <nav>
         <ul>
           <li><router-link to="/login">Login</router-link></li>
@@ -28,7 +28,7 @@
           Confirma la Contraseña:
           <input type="password" v-model="confirmPassword" required>
         </label>
-        <button type="submit" @click.prevent="register">Register</button>
+        <button type="submit" @click.prevent="register">Registrarse</button>
         <div v-if="error" class="error">{{ error }}</div>
       </form>
       </div>
@@ -55,8 +55,11 @@
     },
     methods: {
       async register() {
-        if (this.password !== this.confirmPassword) {
-          this.error = "Passwords do not match";
+        if (this.username == '' || this.email == '' || this.password == '' || this.confirmPassword == '') {
+          this.error = "Rellena todos los campos";
+          return;
+        }else if (this.password !== this.confirmPassword) {
+          this.error = "Las contraseñas no coinciden";
           return;
         }
         const response = await API.addUser({
@@ -68,13 +71,22 @@
           this.error = response.error;
           return;
         }
-        this.$router.push("/about");
+        this.$router.push("/screening");
       },
     },
   };
   </script>
   
   <style scoped>
+  .titulo {
+  text-decoration: none;
+  color: white;
+}
+
+.titulo-link {
+  text-decoration: none;
+  color: white;
+}
 
 .base-wireframe {
   display: flex;

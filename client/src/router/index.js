@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BaseUser from '../views/BaseUser.vue'
+import Screening from '../views/Screening'
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
     path: '/userPage',
     name: 'userPage',
     component: BaseUser
+  },
+  {
+    path: '/screening',
+    name: 'screening',
+    component: Screening
   },
 ]
 
