@@ -1,14 +1,15 @@
-const Pregunta = require("../models/screening")
+const mongojs = require('mongojs')
+const db = mongojs('mongodb://127.0.0.1:27017/hads_app_vue', ['screening'])
 
 module.exports = class SCREENING {
     // fetch all questions
-    static async fetchAllQuestion(req, res) {
-        try {
-            const preguntas = await Pregunta.find()
-            console.log(preguntas)
-            res.status(200).json(preguntas)
-        }catch (err) {
-            res.status(404).json({ message: err.message })
-        }
+    static fetchAllQuestion(req, res) {
+        db.screening.find((err, docs) => {
+            if(err){
+                res.send(err)
+            }else{
+                res.status(200).json(docs)
+            }
+        })
     }
 }

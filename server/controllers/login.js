@@ -1,10 +1,13 @@
-const User = require("../models/users")
+const mongojs = require('mongojs')
+const db = mongojs('mongodb://127.0.0.1:27017/hads_app_vue', ['users'])
 
 module.exports = class API {
     // fetch all users
-    static async fetchAllUser(req, res) {
+    static fetchAllUser(req, res) {
         try {
-            const users = await User.find()
+            const users = db.users.find((err, docs) => {
+                res.status(200).json(docs)
+            })
             console.log(users)
             res.status(200).json(users)
         } catch (err) {
@@ -13,20 +16,25 @@ module.exports = class API {
     }
 
     // fetch user by ID
-    static async fetchUserByID(req, res) {
+    static fetchUserByID(req, res) {
         try {
-            const user = await User.findOne({ 'username': req.params.id })
-            res.status(200).json(user)
+            const user = db.users.find({ 'username': req.params.id }, (err, docs) => {
+                if (err) {
+                    res.send(err)
+                } else {
+                    res.status(200).json(docs)
+                }
+            })
         } catch (err) {
             res.status(404).json({ message: err.message })
         }
     }
 
     // create a user
-    static async createUser(req, res) {
+    static createUser(req, res) {
         const user = req.body
         try {
-            await User.create(user)
+            db.users.insertOne(user)
             res.status(201).json({ message: 'User created successfully!' })
         } catch (err) {
             res.status(400).json({ message: err.message })
@@ -34,12 +42,12 @@ module.exports = class API {
     }
 
     // update a user
-    static async updateUser(req, res) {
+    static updateUser(req, res) {
         res.send("Update")
     }
 
     // delete a user
-    static async deleteUser(req, res) {
+    static deleteUser(req, res) {
         res.send("Delete")
     }
 }
