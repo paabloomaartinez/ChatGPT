@@ -4,33 +4,33 @@
         <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
       <nav>
         <ul>
-          <li><router-link to="/logout">Logout</router-link></li>
+          <li><router-link to="/logout" @click="logout">Logout</router-link></li>
         </ul>
       </nav>
     </header>
     <main>
       <div class="screening-page">
         <div v-if="preguntas.length > 0">
-      <h2>{{ preguntaActualData.pregunta }}</h2>
-      <div>
-        <div v-for="(opcion, index) in preguntaActualData.opciones" :key="index">
-          <label>
-            <input
-              type="radio"
-              :value="opcion"
-              v-model="preguntaActualData.respuesta"
-            >
-            {{ opcion }}
-          </label>
+          <h2>{{ preguntaActualData.pregunta }}</h2>
+          <div>
+            <div v-for="(opcion, index) in preguntaActualData.opciones" :key="index">
+              <label>
+                <input
+                  type="radio"
+                  :value="opcion"
+                  v-model="preguntaActualData.respuesta"
+                >
+                {{ opcion }}
+              </label>
+            </div>
+          </div>
+          <br>
+          <button @click="mostrarPreguntaAnterior" :disabled="preguntaActual === 0">Anterior</button>
+          <button @click="mostrarSiguientePregunta" :disabled="preguntaActual === preguntas.length - 1">Siguiente</button>
         </div>
-      </div>
-      <br>
-      <button @click="mostrarPreguntaAnterior" :disabled="preguntaActual === 0">Anterior</button>
-      <button @click="mostrarSiguientePregunta" :disabled="preguntaActual === preguntas.length - 1">Siguiente</button>
-    </div>
-    <div v-else>
-      <p>No se encontraron preguntas.</p>
-    </div>
+        <div v-else>
+          <p>No se encontraron preguntas.</p>
+        </div>
       </div>
     </main>
     <footer>
@@ -73,6 +73,13 @@ export default {
       if (this.preguntaActual > 0) {
         this.preguntaActual--;
       }
+    },
+    logout() {
+      // Eliminar los datos del localStorage
+      localStorage.removeItem('user');
+
+      // Redirigir a la ruta "/logout"
+      this.$router.push('/logout');
     }
   },
   computed: {
@@ -145,14 +152,19 @@ text-align: center;
 }
 
 .screening-page {
-  display: flex;
+  display:block;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
 }
 
 .opciones {
-  display: flex;
+  display:block;
   flex-direction: column;
   margin-top: 2rem;
 }
@@ -162,13 +174,13 @@ text-align: center;
 }
 
 button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  background-color: #4CAF50;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 0.5rem;
+  background-color: #333;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
 }
 

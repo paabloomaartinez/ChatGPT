@@ -35,6 +35,11 @@ const routes = [
     name: 'screening',
     component: Screening
   },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Home
+  }
 ]
 
 const router = createRouter({
