@@ -6,4 +6,8 @@ export default class SCREENING {
         const res = await axios.get(url)
         return res.data
     }
+
+    static async calculateLevel() {
+        console.log("calculateLevel")
+    }
 }

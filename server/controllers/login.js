@@ -41,9 +41,17 @@ module.exports = class API {
         }
     }
 
-    // update a user
-    static updateUser(req, res) {
-        res.send("Update")
+    static setLevelZero(req, res) {
+        db.users.findAndModify({
+            query: {_id: mongojs.ObjectId(req.params.id)},
+            update: {$set: {'level':0}}
+        }, (err, docs) => {
+            if(err){
+                res.send(err)
+            }else{
+                res.status(200).json(docs)
+            }
+        })
     }
 
     // delete a user

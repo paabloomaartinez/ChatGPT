@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BaseUser from '../views/BaseUser.vue'
 import Screening from '../views/Screening'
+import PreguntaInicialVue from '../views/PreguntaInicial.vue'
 
 const routes = [
   {
@@ -29,6 +30,11 @@ const routes = [
     path: '/userPage',
     name: 'userPage',
     component: BaseUser
+  },
+  {
+    path: '/initialQuestion',
+    name: 'initialQuestion',
+    component: PreguntaInicialVue
   },
   {
     path: '/screening',

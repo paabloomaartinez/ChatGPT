@@ -20,9 +20,8 @@ export default class LOGIN {
         return res.data
     }
 
-    // to update user into db
-    static async updateUser(id, user) {
-        const res = await axios.patch(`${url}/${id}`, user)
+    static async setLevelZero(id) {
+        const res = await axios.post(`${url}/${id}`)
         return res.data
     }
 

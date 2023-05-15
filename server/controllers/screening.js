@@ -12,4 +12,8 @@ module.exports = class SCREENING {
             }
         })
     }
+
+    static  calculateLevel(req, res) {
+        console.log("calculateLevel")
+    }
 }

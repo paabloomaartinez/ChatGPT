@@ -8,11 +8,10 @@ const OpenAIChat = require("../controllers/OpenAIChat")
 router.get("/login/", LOGIN.fetchAllUser)
 router.get("/login/:id", LOGIN.fetchUserByID)
 router.post("/login/", LOGIN.createUser)
-router.patch("/login/:id", LOGIN.updateUser)
+router.post("/login/:id", LOGIN.setLevelZero)
 router.delete("/login/:id", LOGIN.deleteUser)
 
 router.get("/screening/", SCREENING.fetchAllQuestion)
-
 // router.get("/ask/", OpenAIChat.askChatGPT)
 
 module.exports = router
