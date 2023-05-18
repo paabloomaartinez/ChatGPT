@@ -27,7 +27,7 @@
           <br>
           <button @click="mostrarPreguntaAnterior" :disabled="preguntaActual === 0">Anterior</button>
           <button @click="mostrarSiguientePregunta" :disabled="preguntaActual === preguntas.length - 1">Siguiente</button>
-          <div><button v-if="preguntaActual === preguntas.length - 1" @click="enviarRespuesta">Enviar</button></div>
+          <div><button v-if="preguntaActual === preguntas.length - 1"><router-link to="/login/ok" @click="enviarRespuesta">Enviar</router-link></button></div>
           <br>
           <div v-if="error" class="error">{{ error }}</div>
         </div>
