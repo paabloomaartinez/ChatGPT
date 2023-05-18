@@ -27,7 +27,7 @@
         let userData = localStorage.getItem('user')
         let user = JSON.parse(userData)
         console.log(user[0]._id)
-        API.setLevelZero(user[0]._id)
+        API.setLevel(user[0]._id, 0)
         let newUser = await API.getUserById(user[0].username)
         localStorage.setItem('user', JSON.stringify(newUser))
         this.$router.push('/noVue');

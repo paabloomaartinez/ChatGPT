@@ -1,7 +1,7 @@
 <template>
   <div class="base-wireframe">
     <header>
-        <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
+        <h1 class="titulo"><router-link to="/" @click="logout" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
       <nav>
         <ul>
           <li><router-link to="/logout" @click="logout">Logout</router-link></li>
@@ -27,6 +27,9 @@
           <br>
           <button @click="mostrarPreguntaAnterior" :disabled="preguntaActual === 0">Anterior</button>
           <button @click="mostrarSiguientePregunta" :disabled="preguntaActual === preguntas.length - 1">Siguiente</button>
+          <div><button v-if="preguntaActual === preguntas.length - 1" @click="enviarRespuesta">Enviar</button></div>
+          <br>
+          <div v-if="error" class="error">{{ error }}</div>
         </div>
         <div v-else>
           <p>No se encontraron preguntas.</p>
@@ -41,16 +44,22 @@
 
 <script>
 import SCREENING from '../controllers/screening';
-
+import API from '../controllers/login'
 export default {
   data() {
     return {
       preguntas: [],
-      preguntaActual: 0
+      preguntaActual: 0,
+      error: ""
     };
   },
   mounted() {
     this.obtenerPreguntas();
+
+    window.addEventListener("beforeunload", this.limpiarLocalStorage);
+  },
+  beforeUnmount() {
+  window.removeEventListener("beforeunload", this.limpiarLocalStorage);
   },
   methods: {
     async obtenerPreguntas() {
@@ -64,22 +73,56 @@ export default {
         console.error(error);
       }
     },
+    limpiarLocalStorage() {
+    localStorage.removeItem('respuestas');
+    },
     mostrarSiguientePregunta() {
       if (this.preguntaActual < this.preguntas.length - 1) {
-        this.preguntaActual++;
+        if(this.preguntaActualData.respuesta === null) {
+          this.error = 'La respuesta a la pregunta es obligatoria.'
+          return;
+        }else {
+          this.guardarRespuesta()
+          this.preguntaActual++;
+          this.error = ""
+        }
       }
     },
     mostrarPreguntaAnterior() {
       if (this.preguntaActual > 0) {
+        this.eliminarRespuesta()
         this.preguntaActual--;
       }
     },
     logout() {
       // Eliminar los datos del localStorage
-      localStorage.removeItem('user');
+      localStorage.clear();
 
       // Redirigir a la ruta "/logout"
       this.$router.push('/logout');
+    },
+    guardarRespuesta() {
+
+      const respuestasGuardadas = JSON.parse(localStorage.getItem('respuestas')) || [];
+      respuestasGuardadas.push(this.preguntaActualData.respuesta);
+      localStorage.setItem('respuestas', JSON.stringify(respuestasGuardadas));
+      
+    },
+    eliminarRespuesta() {
+      const respuestasGuardadas = JSON.parse(localStorage.getItem('respuestas')) || [];
+      respuestasGuardadas.pop();
+      localStorage.setItem('respuestas', JSON.stringify(respuestasGuardadas));
+    },
+    enviarRespuesta() {
+      if(this.preguntaActualData.respuesta === null) {
+          this.error = 'La respuesta a la pregunta es obligatoria.'
+          return;
+      }
+      this.guardarRespuesta();
+      this.calculateLevel();
+    },
+    calculateLevel() {
+      console.log('Cálculo del nivel');
     }
   },
   computed: {
@@ -89,6 +132,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .titulo {
@@ -188,5 +232,8 @@ button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
+.error {
+    color: red;
+  }
 
 </style>

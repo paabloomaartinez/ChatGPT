@@ -47,7 +47,6 @@
     methods: {
       async login() {
         this.user = await API.getUserById(this.username)
-        console.log(this.user)
         if (this.username === this.user[0].username && this.password === this.user[0].password) {
           localStorage.setItem('user', JSON.stringify(this.user));
           this.$router.push('/initialQuestion');

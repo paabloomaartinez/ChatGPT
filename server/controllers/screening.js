@@ -13,7 +13,19 @@ module.exports = class SCREENING {
         })
     }
 
-    static  calculateLevel(req, res) {
-        console.log("calculateLevel")
+    static async  calculateLevel(req, res) {
+        let preguntas = await this.fetchAllQuestion()
+        let respuestas = req.body
+        let valoracionFinal = 0
+        preguntas.forEach(element => {
+            respuestas.forEach(e => {
+                let respuestaCorrecta = element.respuestaCorrecta
+                let valoracion = element.valoracion
+                if (e.includes(respuestaCorrecta)) {
+                    valoracionFinal += valoracion
+                }
+            })
+        });
+        res.status(200).json(valoracionFinal)
     }
 }

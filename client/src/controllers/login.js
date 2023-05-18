@@ -20,8 +20,8 @@ export default class LOGIN {
         return res.data
     }
 
-    static async setLevelZero(id) {
-        const res = await axios.post(`${url}/${id}`)
+    static async setLevel(id, level) {
+        const res = await axios.post(`${url}/${id}`, level)
         return res.data
     }
 

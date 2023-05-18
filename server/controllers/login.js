@@ -41,7 +41,7 @@ module.exports = class API {
         }
     }
 
-    static setLevelZero(req, res) {
+    static setLevel(req, res) {
         db.users.findAndModify({
             query: {_id: mongojs.ObjectId(req.params.id)},
             update: {$set: {'level':0}}
