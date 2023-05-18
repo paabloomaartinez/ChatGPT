@@ -14,18 +14,32 @@ module.exports = class SCREENING {
     }
 
     static async  calculateLevel(req, res) {
-        let preguntas = await this.fetchAllQuestion()
-        let respuestas = req.body
-        let valoracionFinal = 0
-        preguntas.forEach(element => {
-            respuestas.forEach(e => {
-                let respuestaCorrecta = element.respuestaCorrecta
-                let valoracion = element.valoracion
-                if (e.includes(respuestaCorrecta)) {
-                    valoracionFinal += valoracion
+        db.screening.find((err, docs) => {
+            if(err){
+                res.send(err)
+            }else{
+                let preguntas = docs
+                let respuestas = req.body.respuestas
+                let valoracionFinal = 0
+                preguntas.forEach(element => {
+                    let respuestaCorrecta = element.respuestaCorrecta
+                    let valoracion = element.valoracion
+                    for (const e of respuestas) {
+                        if (e.includes(respuestaCorrecta)) {
+                            valoracionFinal += valoracion
+                        }
+                        break
+                    }
+                });
+                console.log(valoracionFinal)
+                if (valoracionFinal <= 10) {
+                    res.status(200).json({'level':'Principiante'})
+                } else {
+                    res.status(200).json({'level':'Intermedio'})
                 }
-            })
-        });
-        res.status(200).json(valoracionFinal)
+            }
+        })
+        
+        
     }
 }

@@ -7,8 +7,9 @@ export default class SCREENING {
         return res.data
     }
 
-    static async calculateLevel(id, respuestas) {
-        const level = await axios.get(`${url}/level`, respuestas)
-        const res = await axios.post(`/login/${id}`, level.data)
+    static async calculateLevel(respuestas) {
+        console.log(respuestas)
+        const res = await axios.post(url, respuestas)
+        return res.data
     }
 }
