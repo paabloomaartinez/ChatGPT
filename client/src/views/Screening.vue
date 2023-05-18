@@ -121,8 +121,14 @@ export default {
       this.guardarRespuesta();
       this.calculateLevel();
     },
-    calculateLevel() {
-      console.log('Cálculo del nivel');
+    async calculateLevel() {
+      let userData = localStorage.getItem('user')
+      let user = JSON.parse(userData)
+      let respuestasData = localStorage.getItem('respuestas')
+      let nivel = await SCREENING.calculateLevel({'respuestas':JSON.parse(respuestasData)})
+      API.setLevel(user[0]._id, nivel)
+      let newUser = await API.getUserById(user[0].username)
+      localStorage.setItem('user', JSON.stringify(newUser))
     }
   },
   computed: {

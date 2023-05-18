@@ -71,7 +71,7 @@
           this.error = response.error;
           return;
         }
-        this.$router.push("/screening");
+        this.$router.push("/initialQuestion");
       },
     },
   };

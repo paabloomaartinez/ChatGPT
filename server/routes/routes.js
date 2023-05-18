@@ -12,7 +12,7 @@ router.post("/login/:id", LOGIN.setLevel)
 router.delete("/login/:id", LOGIN.deleteUser)
 
 router.get("/screening/", SCREENING.fetchAllQuestion)
-router.get("/screening/level", SCREENING.calculateLevel)
+router.post("/screening/", SCREENING.calculateLevel)
 router.get("/ask/", OpenAIChat.askChatGPT)
 
 module.exports = router
