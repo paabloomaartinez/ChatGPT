@@ -2,11 +2,6 @@
     <div class="base-wireframe">
       <header>
         <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
-      <nav>
-        <ul>
-          <li><router-link to="/login">Login</router-link></li>
-        </ul>
-      </nav>
     </header>
     <main>
       <div class="register-page">
@@ -71,6 +66,7 @@
           this.error = response.error;
           return;
         }
+        localStorage.setItem('user', JSON.stringify([{'username': this.username, 'email': this.email, 'password': this.password,}]))
         this.$router.push("/initialQuestion");
       },
     },
@@ -102,28 +98,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-nav li:not(:last-child) {
-  margin-right: 1rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-}
-
-nav li:hover {
-  text-decoration: underline;
 }
 
 main {

@@ -2,11 +2,6 @@
   <div class="base-wireframe">
     <header>
         <h1 class="titulo"><router-link to="/" @click="logout" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
-      <nav>
-        <ul>
-          <li><router-link to="/logout" @click="logout">Logout</router-link></li>
-        </ul>
-      </nav>
     </header>
     <main>
       <div class="screening-page">
@@ -27,7 +22,7 @@
           <br>
           <button @click="mostrarPreguntaAnterior" :disabled="preguntaActual === 0">Anterior</button>
           <button @click="mostrarSiguientePregunta" :disabled="preguntaActual === preguntas.length - 1">Siguiente</button>
-          <div><button v-if="preguntaActual === preguntas.length - 1"><router-link to="/login/ok" @click="enviarRespuesta">Enviar</router-link></button></div>
+          <div><button v-if="preguntaActual === preguntas.length - 1" @click="enviarRespuesta">Enviar</button></div>
           <br>
           <div v-if="error" class="error">{{ error }}</div>
         </div>
@@ -113,20 +108,22 @@ export default {
       respuestasGuardadas.pop();
       localStorage.setItem('respuestas', JSON.stringify(respuestasGuardadas));
     },
-    enviarRespuesta() {
+    async enviarRespuesta() {
       if(this.preguntaActualData.respuesta === null) {
           this.error = 'La respuesta a la pregunta es obligatoria.'
           return;
       }
       this.guardarRespuesta();
-      this.calculateLevel();
+      await this.calculateLevel();
+      this.$router.push('/login/ok');
     },
     async calculateLevel() {
       let userData = localStorage.getItem('user')
       let user = JSON.parse(userData)
       let respuestasData = localStorage.getItem('respuestas')
       let nivel = await SCREENING.calculateLevel({'respuestas':JSON.parse(respuestasData)})
-      API.setLevel(user[0]._id, nivel)
+      console.log(nivel)
+      API.setLevel(user[0].username, nivel)
       let newUser = await API.getUserById(user[0].username)
       localStorage.setItem('user', JSON.stringify(newUser))
     }
@@ -165,28 +162,6 @@ padding: 1rem;
 display: flex;
 justify-content: space-between;
 align-items: center;
-}
-
-nav ul {
-list-style: none;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-nav li:not(:last-child) {
-margin-right: 1rem;
-}
-
-nav a {
-color: white;
-text-decoration: none;
-}
-
-nav li:hover {
-text-decoration: underline;
 }
 
 main {

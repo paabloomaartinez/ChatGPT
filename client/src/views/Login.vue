@@ -2,11 +2,6 @@
     <div class="base-wireframe">
       <header>
         <h1 class="titulo"><router-link to="/" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
-      <nav>
-        <ul>
-          <li><router-link to="/login">Login</router-link></li>
-        </ul>
-      </nav>
     </header>
     <main>
       <div class="login-page">

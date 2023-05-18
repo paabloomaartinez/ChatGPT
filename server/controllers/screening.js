@@ -28,7 +28,6 @@ module.exports = class SCREENING {
                         valoracionFinal += valoracion
                     }
                 }
-                console.log(valoracionFinal)
                 if (valoracionFinal <= 10) {
                     res.status(200).json({'level':'Principiante'})
                 } else {
