@@ -21,16 +21,13 @@ module.exports = class SCREENING {
                 let preguntas = docs
                 let respuestas = req.body.respuestas
                 let valoracionFinal = 0
-                preguntas.forEach(element => {
-                    let respuestaCorrecta = element.respuestaCorrecta
-                    let valoracion = element.valoracion
-                    for (const e of respuestas) {
-                        if (e.includes(respuestaCorrecta)) {
-                            valoracionFinal += valoracion
-                        }
-                        break
+                for (let i = 0; i<=preguntas.length-1; i++) {
+                    let respuestaCorrecta = preguntas[i].respuestaCorrecta
+                    let valoracion = preguntas[i].valoracion
+                    if (respuestas[i].includes(respuestaCorrecta)) {
+                        valoracionFinal += valoracion
                     }
-                });
+                }
                 console.log(valoracionFinal)
                 if (valoracionFinal <= 10) {
                     res.status(200).json({'level':'Principiante'})
