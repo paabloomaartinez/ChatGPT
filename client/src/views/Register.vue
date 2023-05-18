@@ -36,7 +36,7 @@
   
   <script>
   import API from "../controllers/login";
-  
+  import bcrypt from 'bcryptjs';
   export default {
     name: "RegisterPage",
     data() {
@@ -49,6 +49,12 @@
       };
     },
     methods: {
+      hashPassword(password) {
+        const salt = bcrypt.genSaltSync(10); // Generar una sal (salt)
+        const hashedPassword = bcrypt.hashSync(password, salt); // Aplicar función hash a la contraseña
+
+        return hashedPassword;
+      },
       async register() {
         if (this.username == '' || this.email == '' || this.password == '' || this.confirmPassword == '') {
           this.error = "Rellena todos los campos";
@@ -60,13 +66,13 @@
         const response = await API.addUser({
           username: this.username,
           email: this.email,
-          password: this.password,
+          password: this.hashPassword(this.password),
         });
         if (response.error) {
           this.error = response.error;
           return;
         }
-        localStorage.setItem('user', JSON.stringify([{'username': this.username, 'email': this.email, 'password': this.password,}]))
+        localStorage.setItem('user', JSON.stringify([{'username': this.username, 'email': this.email, 'password': this.hashPassword(this.password)}]))
         this.$router.push("/initialQuestion");
       },
     },

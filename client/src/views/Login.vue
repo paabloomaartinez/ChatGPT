@@ -29,6 +29,7 @@
   
   <script>
   import API from "../controllers/login"
+  import bcrypt from 'bcryptjs';
   export default {
     name: 'LoginPage',
     data() {
@@ -42,7 +43,7 @@
     methods: {
       async login() {
         this.user = await API.getUserById(this.username)
-        if (this.username === this.user[0].username && this.password === this.user[0].password) {
+        if (this.username === this.user[0].username && bcrypt.compareSync(this.password, this.user[0].password)) {
           localStorage.setItem('user', JSON.stringify(this.user));
           this.$router.push('/login/ok');
         } else {

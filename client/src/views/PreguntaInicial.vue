@@ -26,7 +26,6 @@
       async redirectToNoVue() {
         let userData = localStorage.getItem('user')
         let user = JSON.parse(userData)
-        console.log(user)
         API.setLevel(user[0].username, {'level': 'Principiante'})
         let newUser = await API.getUserById(user[0].username)
         localStorage.setItem('user', JSON.stringify(newUser))
