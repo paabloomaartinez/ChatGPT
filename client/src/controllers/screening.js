@@ -8,7 +8,6 @@ export default class SCREENING {
     }
 
     static async calculateLevel(respuestas) {
-        console.log(respuestas)
         const res = await axios.post(url, respuestas)
         return res.data
     }

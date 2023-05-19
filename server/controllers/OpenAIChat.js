@@ -5,7 +5,7 @@ module.exports = class OpenAIChat {
     static async askChatGPT(req, res) {
 
         const configuration = new Configuration({
-            apiKey: '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'
+            apiKey: 'Nuevo key'
         });
         let openai = new OpenAIApi(configuration);
 

@@ -41,6 +41,12 @@
       };
     },
     methods: {
+      hashPassword(password) {
+        const salt = bcrypt.genSaltSync(10); // Generar una sal (salt)
+        const hashedPassword = bcrypt.hashSync(password, salt); // Aplicar función hash a la contraseña
+
+        return hashedPassword;
+      },
       async login() {
         this.user = await API.getUserById(this.username)
         if (this.username === this.user[0].username && bcrypt.compareSync(this.password, this.user[0].password)) {
