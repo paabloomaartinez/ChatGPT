@@ -115,6 +115,7 @@ export default {
       }
       this.guardarRespuesta();
       await this.calculateLevel();
+      localStorage.removeItem('respuestas')
       this.$router.push('/login/ok');
     },
     async calculateLevel() {

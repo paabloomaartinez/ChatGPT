@@ -29,9 +29,9 @@
             </p>
             <pre>
             watch: {
-            nombrePropiedad: function(nuevoValor, antiguoValor) {
+              nombrePropiedad: function(nuevoValor, antiguoValor) {
                 // Lógica personalizada a ejecutar cuando la propiedad cambie
-            }
+              }
             }</pre>
             <p>
                 El <b>watcher</b> recibe dos argumentos: el <b>nuevoValor</b> y el <b>antiguoValor</b> de la propiedad observada. Estos valores permiten comparar y tomar decisiones en base a los cambios ocurridos. Por ejemplo, podemos realizar una llamada a una API cuando un valor específico cambie, actualizar otras propiedades dependientes o realizar cálculos complejos.
