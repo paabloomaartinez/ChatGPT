@@ -27,19 +27,19 @@
         let userData = localStorage.getItem('user')
         let user = JSON.parse(userData)
         await API.setLevel(user[0].username, {'level': 'Principiante', 
-        'content':[{
-          '1': false,
-          '2': false,
-          '3': false,
-          '4': false,
-          '5': false,
-          '6': false,
-          '7': false,
-          '8':false,
-          '9':false,
-          '10': false,
-          '11': false
-        }]})
+        'content':[
+        { numero: 1, nombre: 'Fundamentos', enable: true},
+        { numero: 2, nombre: 'Directivas', enable: false },
+        { numero: 3, nombre: 'Metodos', enable: false },
+        { numero: 4, nombre: 'Eventos', enable: false },
+        { numero: 5, nombre: 'Componentes', enable: false },
+        { numero: 6, nombre: 'Plantillas', enable: false },
+        { numero: 7, nombre: 'Routing', enable: false },
+        { numero: 8, nombre: 'Watchers', enable: false },
+        { numero: 9, nombre: 'Animation', enable: false },
+        { numero: 10, nombre: 'Build', enable: false },
+        { numero: 11, nombre: 'Deployment', enable: false }
+      ]})
         let newUser = await API.getUserById(user[0].username)
         localStorage.setItem('user', JSON.stringify(newUser))
         this.$router.push('/login/ok');

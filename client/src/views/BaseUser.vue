@@ -4,7 +4,7 @@
       <h1 class="titulo"><router-link to="/userPage" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
       <nav>
         <ul>
-          <li><router-link to="/chat">Chat</router-link></li>
+          <li><router-link to="/chat">Generador de Preguntas</router-link></li>
           <li><router-link to="/logout" @click="logout">Logout</router-link></li>
         </ul>
       </nav>
@@ -13,8 +13,9 @@
       <div class="userPage">
         <div class="menu">
           <ul>
-            <li v-for="(nivel, index) in niveles" :key="index">
-              Nivel {{ nivel.numero }}: {{ nivel.nombre }}
+            <li v-for="(nivel, index) in niveles" :key="index" :class="{ 'no-seleccionable': !nivel.enable }">
+              <a v-if="nivel.enable" :href="`/${nivel.nombre}`">Nivel {{ nivel.numero }}: {{ nivel.nombre }}</a>
+              <span v-else>Nivel {{ nivel.numero }}: {{ nivel.nombre }}</span>
             </li>
           </ul>
         </div>
@@ -37,19 +38,7 @@ export default {
     return {
       username: '',
       level: '',
-      niveles: [
-        { numero: 1, nombre: 'Fundamentos' },
-        { numero: 2, nombre: 'Directivas' },
-        { numero: 3, nombre: 'Eventos' },
-        { numero: 4, nombre: 'Eventos' },
-        { numero: 5, nombre: 'Componentes' },
-        { numero: 6, nombre: 'Plantillas' },
-        { numero: 7, nombre: 'Routing' },
-        { numero: 8, nombre: 'Watchers' },
-        { numero: 9, nombre: 'Animation' },
-        { numero: 10, nombre: 'Build' },
-        { numero: 11, nombre: 'Deployment' }
-      ]
+      niveles: []
     };
   },
   mounted() {
@@ -62,6 +51,7 @@ export default {
       if (usuario) {
         this.username = usuario[0].username;
         this.level = usuario[0].level;
+        this.niveles = usuario[0].content
       }
     },
     logout() {
@@ -76,31 +66,25 @@ export default {
 </script>
 
 <style>
-
 .titulo {
-text-decoration: none;
-color: white;
-}
-
-.titulo-link {
-text-decoration: none;
-color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .base-wireframe {
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: sans-serif;
 }
 
 header {
-background-color: #333;
-color: white;
-padding: 1rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menu ul {
@@ -111,7 +95,7 @@ align-items: center;
 
 .menu li {
   margin-bottom: 1rem;
-
+  list-style: none;
 }
 
 .userPage {
@@ -124,6 +108,7 @@ align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 1rem;
+  text-decoration: none;
 }
 
 .content {
@@ -132,37 +117,43 @@ align-items: center;
 }
 
 nav ul {
-list-style: none;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav li:not(:last-child) {
-margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 nav a {
-color: white;
-text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 nav li:hover {
-text-decoration: underline;
+  text-decoration: underline;
 }
 
 main {
-flex: 1;
-padding: 1rem;
+  flex: 1;
+  padding: 1rem;
 }
 
 footer {
-background-color: #333;
-color: white;
-padding: 1rem;
-text-align: center;
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.no-seleccionable {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 </style>

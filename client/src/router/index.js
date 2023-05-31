@@ -6,6 +6,9 @@ import BaseUser from '../views/BaseUser.vue'
 import Screening from '../views/Screening'
 import PreguntaInicialVue from '../views/PreguntaInicial.vue'
 import DinamicsQuestionsVue from '../views/DinamicsQuestions.vue'
+import FundamentosVue from '../views/Fundamentos.vue'
+import DirectivasVue from '../views/Directivas.vue'
+import MetodosVue from '../views/Métodos.vue'
 
 const routes = [
   {
@@ -51,6 +54,21 @@ const routes = [
     path: '/chat',
     name: 'chat',
     component: DinamicsQuestionsVue
+  },
+  {
+    path: '/Fundamentos',
+    name: 'Fundamentos',
+    component: FundamentosVue
+  },
+  {
+    path: '/Directivas',
+    name: 'Directivas',
+    component: DirectivasVue
+  },
+  {
+    path: '/Metodos',
+    name: 'Métodos',
+    component: MetodosVue
   }
 ]
 

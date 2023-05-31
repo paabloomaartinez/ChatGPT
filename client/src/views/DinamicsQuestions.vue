@@ -42,6 +42,7 @@ export default {
       options: [
         "Fundamentos",
         "Directivas",
+        "Métodos",
         "Eventos",
         "Componentes",
         "Plantillas",
