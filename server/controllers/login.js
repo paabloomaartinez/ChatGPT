@@ -44,7 +44,7 @@ module.exports = class API {
     static setLevel(req, res) {
         db.users.findAndModify({
             query: {'username': req.params.id},
-            update: {$set: {'level': req.body.level}}
+            update: {$set: {'level': req.body.level, 'content': req.body.content}}
         }, (err, docs) => {
             if(err){
                 res.send(err)

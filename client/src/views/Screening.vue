@@ -122,7 +122,37 @@ export default {
       let user = JSON.parse(userData)
       let respuestasData = localStorage.getItem('respuestas')
       let nivel = await SCREENING.calculateLevel({'respuestas':JSON.parse(respuestasData)})
-      API.setLevel(user[0].username, nivel)
+      console.log(nivel.level)
+      if (nivel.level == 'Principiante') {
+        await API.setLevel(user[0].username, {'level':'Principiante', 'content':[{
+          '1': false,
+          '2': false,
+          '3': false,
+          '4': false,
+          '5': false,
+          '6': false,
+          '7': false,
+          '8':false,
+          '9':false,
+          '10': false,
+          '11': false
+        }]})
+      } else {
+        await API.setLevel(user[0].username, {'level': 'Intermedio', 'content':[{
+          '1': true,
+          '2': false,
+          '3': false,
+          '4': false,
+          '5': false,
+          '6': false,
+          '7': false,
+          '8':false,
+          '9':false,
+          '10': false,
+          '11': false
+        }]})
+      }
+      
       let newUser = await API.getUserById(user[0].username)
       localStorage.setItem('user', JSON.stringify(newUser))
     }
