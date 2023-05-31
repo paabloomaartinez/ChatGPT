@@ -5,7 +5,7 @@ module.exports = class OpenAIChat {
     static async askChatGPT(req, res) {
 
         const configuration = new Configuration({
-            apiKey: 'PONER KEY'
+            apiKey: 'KEY'
         });
         let openai = new OpenAIApi(configuration);
 

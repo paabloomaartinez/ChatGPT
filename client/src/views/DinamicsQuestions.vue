@@ -19,10 +19,10 @@
                 <div v-if="showQuestion">
                     <h3>{{ question }}</h3>
                     <div v-for="(option, index) in optionsAnswer" :key="index">
-                        <input type="radio" :id="'option-' + index" :value="option" v-model="selectedOptionAnswer" @click="clearFeedback()">
-                        <label :for="'option-' + index" @click="clearFeedback()">{{ option }}</label>
+                        <input type="radio" :id="'option-' + index" :value="option" v-model="selectedOptionAnswer" @click="clearFeedback()" :disabled = "disabled === true">
+                        <label :for="'option-' + index" @click="clearFeedback()" :disabled = "disabled === true">{{ option }}</label>
                     </div>
-                    <button @click="submitAnswer">Enviar respuesta</button>
+                    <button @click="submitAnswer" :disabled = "disabled === true">Enviar respuesta</button>
                     <div v-if="error" class="error">{{ error }}</div>
                     <div v-if="correct" class="correct">{{ correct }}</div>
                 </div>
@@ -60,7 +60,8 @@ export default {
       optionsAnswer: [],
       selectedOptionAnswer: '',
       correctAnswer:'',
-      correct: ''
+      correct: '',
+      disabled: false
     };
   },
   methods: {
@@ -68,6 +69,7 @@ export default {
         this.error = ''
         this.correct = ''
         this.showQuestion = false
+        this.disabled = false
       if (this.selectedOption !== "") {
         let prompt = 'Generame una pregunta tipo test sobre '+ this.selectedOption +' de Vue y devuelveme un json:' +
             '{ "pregunta": "", "opciones": [], "respuesta_correcta": }' +
@@ -88,8 +90,10 @@ export default {
       }else if (this.selectedOptionAnswer == this.optionsAnswer[this.correctAnswer]) {
         this.correct = '¡Respuesta correcta!'
       } else {
-        this.error = 'Respuesta incorrecta, intentelo de nuevo.'
+        this.error = 'Respuesta incorrecta'
+        this.correct = 'La respuesta correcta es: ' + this.optionsAnswer[this.correctAnswer]
       }
+      this.disabled = true
     },
     logout() {
       // Eliminar los datos del localStorage
@@ -211,8 +215,11 @@ button {
     color: red;
     margin-top: 5px;
 }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 .correct {
-    color: green;
     margin-top: 5px;
 }  
   </style>
