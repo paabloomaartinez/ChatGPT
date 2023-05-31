@@ -29,7 +29,7 @@
             </p>
             <ul>
                 <li>
-                <strong>v-bind:</strong> La directiva v-bind se utiliza para enlazar el valor de una propiedad o atributo HTML al valor de una expresión o propiedad en el componente Vue. Por ejemplo, se puede usar v-bind para enlazar el atributo "href" de un enlace a una propiedad del componente.
+                <strong>v-bind:</strong> La directiva v-bind se utiliza para enlazar el valor de una propiedad o atributo HTML al valor de una expresión o propiedad en el componente Vue. Por ejemplo, se puede usar v-bind para enlazar el atributo "href" de un enlace (<code>&lt;a&gt;</code>) a una propiedad del componente.
                 </li>
                 <li>
                 <strong>v-if y v-show:</strong> Estas directivas se utilizan para controlar la visibilidad de un elemento en función de una expresión. v-if se utiliza para renderizar condicionalmente un elemento en el DOM, mientras que v-show solo cambia la propiedad CSS "display" del elemento para mostrarlo u ocultarlo.

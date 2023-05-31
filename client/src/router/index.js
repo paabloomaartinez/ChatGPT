@@ -9,6 +9,14 @@ import DinamicsQuestionsVue from '../views/DinamicsQuestions.vue'
 import FundamentosVue from '../views/Fundamentos.vue'
 import DirectivasVue from '../views/Directivas.vue'
 import MetodosVue from '../views/Métodos.vue'
+import EventosVue from '../views/Eventos.vue'
+import ComponentesVue from '../views/Componentes.vue'
+import PlantillasVue from '../views/Plantillas.vue'
+import RoutingVue from '../views/Routing.vue'
+import WatchersVue from '../views/Watchers.vue'
+import AnimationVue from '../views/Animation.vue'
+import BuildVue from '../views/Build.vue'
+import DeploymentVue from '../views/Deployment.vue'
 
 const routes = [
   {
@@ -69,6 +77,46 @@ const routes = [
     path: '/Metodos',
     name: 'Métodos',
     component: MetodosVue
+  },
+  {
+    path: '/Eventos',
+    name: 'Eventos',
+    component: EventosVue
+  },
+  {
+    path: '/Componentes',
+    name: 'Componentes',
+    component: ComponentesVue
+  },
+  {
+    path: '/Plantillas',
+    name: 'Plantillas',
+    component: PlantillasVue
+  },
+  {
+    path: '/Routing',
+    name: 'Routing',
+    component: RoutingVue
+  },
+  {
+    path: '/Watchers',
+    name: 'Watchers',
+    component: WatchersVue
+  },
+  {
+    path: '/Animation',
+    name: 'Animation',
+    component: AnimationVue
+  },
+  {
+    path: '/Build',
+    name: 'Build',
+    component: BuildVue
+  },
+  {
+    path: '/Deployment',
+    name: 'Deployment',
+    component: DeploymentVue
   }
 ]
 
