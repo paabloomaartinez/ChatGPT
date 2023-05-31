@@ -23,7 +23,8 @@
             <h2>Eventos en Vue</h2>
             <p>En Vue, los eventos son una forma de comunicación entre componentes. Puedes escuchar eventos en componentes padres o emitir eventos desde componentes hijos.</p>
             <p>Para escuchar un evento, puedes utilizar la directiva <code>@</code> o <code>v-on</code> seguido del nombre del evento y el método que se ejecutará cuando ocurra el evento. Por ejemplo:</p>
-            <pre><code>&lt;button @click="handleClick"&gt;Click me!&lt;/button&gt;</code></pre>
+            <pre>
+              <code>&lt;button @click="handleClick"&gt;Click me!&lt;/button&gt;</code></pre>
             <p>En este caso, cuando el botón sea clicado, el método <code>handleClick</code> se ejecutará.</p>
             <p>Para emitir un evento desde un componente hijo, se utiliza el método <code>$emit</code>. Por ejemplo:</p>
             <pre>

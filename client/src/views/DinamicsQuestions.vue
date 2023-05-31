@@ -4,7 +4,7 @@
             <h1 class="titulo"><router-link to="/userPage" class="titulo-link">ChatGPT - Learning Vue</router-link></h1>
             <nav>
                 <ul>
-                <li><router-link to="/chat">Chat</router-link></li>
+                <li><router-link to="/userPage">Home</router-link></li>
                 <li><router-link to="/logout" @click="logout">Logout</router-link></li>
                 </ul>
             </nav>

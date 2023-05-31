@@ -42,13 +42,13 @@
             </p>
             <pre><code>
             const routes = [
-            { path: '/inicio', component: Inicio },
-            { path: '/perfil', component: Perfil },
-            { path: '/contacto', component: Contacto }
+              { path: '/inicio', component: Inicio },
+              { path: '/perfil', component: Perfil },
+              { path: '/contacto', component: Contacto }
             ];
 
             const router = new VueRouter({
-            routes
+              routes
             });
             </code></pre>
             <p>
