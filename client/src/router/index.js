@@ -5,6 +5,7 @@ import Register from '../views/Register.vue'
 import BaseUser from '../views/BaseUser.vue'
 import Screening from '../views/Screening'
 import PreguntaInicialVue from '../views/PreguntaInicial.vue'
+import DinamicsQuestionsVue from '../views/DinamicsQuestions.vue'
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
     path: '/logout',
     name: 'logout',
     component: Home
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: DinamicsQuestionsVue
   }
 ]
 

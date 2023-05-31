@@ -5,13 +5,13 @@ module.exports = class OpenAIChat {
     static async askChatGPT(req, res) {
 
         const configuration = new Configuration({
-            apiKey: 'Nuevo key'
+            apiKey: 'PONER KEY'
         });
         let openai = new OpenAIApi(configuration);
 
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: "Hola que tal estas?" }],
+            messages: [{ role: "user", content: req.body.pregunta }],
         });
 
         //console.log("Respuesta: " + completion.data.choices[0].message.content);
