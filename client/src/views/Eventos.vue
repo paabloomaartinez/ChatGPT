@@ -26,13 +26,15 @@
             <pre><code>&lt;button @click="handleClick"&gt;Click me!&lt;/button&gt;</code></pre>
             <p>En este caso, cuando el botón sea clicado, el método <code>handleClick</code> se ejecutará.</p>
             <p>Para emitir un evento desde un componente hijo, se utiliza el método <code>$emit</code>. Por ejemplo:</p>
-            <pre><code>methods: {
-    handleClick() {
-        this.$emit('evento-personalizado');
-    }
-}</code></pre>
+            <pre>
+              <code>methods: {
+                handleClick() {
+                  this.$emit('evento-personalizado');
+                }
+              }</code></pre>
             <p>En el componente padre, puedes escuchar este evento utilizando la directiva <code>@</code> o <code>v-on</code> y especificando el nombre del evento y el método que se ejecutará. Por ejemplo:</p>
-            <pre><code>&lt;mi-componente @evento-personalizado="handleEvento"&gt;&lt;/mi-componente&gt;</code></pre>
+            <pre>
+              <code>&lt;mi-componente @evento-personalizado="handleEvento"&gt;&lt;/mi-componente&gt;</code></pre>
             <p>En este caso, cuando se emita el evento "evento-personalizado" desde el componente hijo, el método <code>handleEvento</code> en el componente padre se ejecutará.</p>
             <p>Los eventos en Vue permiten la comunicación efectiva y el intercambio de información entre componentes, lo que facilita el desarrollo de aplicaciones interactivas y dinámicas.</p>
           </div>
