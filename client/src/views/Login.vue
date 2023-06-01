@@ -49,11 +49,13 @@
       },
       async login() {
         this.user = await API.getUserById(this.username)
-        if (this.username === this.user[0].username && bcrypt.compareSync(this.password, this.user[0].password)) {
+        if (this.user[0] === undefined) {
+          this.error = 'No existe un usuario con el nombre de usuario indicado.';
+        }else if (this.username === this.user[0].username && bcrypt.compareSync(this.password, this.user[0].password)) {
           localStorage.setItem('user', JSON.stringify(this.user));
           this.$router.push('/login/ok');
         } else {
-          this.error = 'Invalid username or password';
+          this.error = 'Nombre de usuario o contraseña no validos.';
         }
       },
     },

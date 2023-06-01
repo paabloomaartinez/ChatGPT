@@ -1,5 +1,10 @@
 const mongojs = require('mongojs')
-const db = mongojs('mongodb://mongo:27017/hads_app_vue', ['users'])
+
+/*dockerizado*/
+//const db = mongojs('mongodb://mongo:27017/hads_app_vue', ['users'])
+
+/*dev*/
+const db = mongojs('mongodb://127.0.0.1:27017/hads_app_vue', ['users'])
 
 module.exports = class API {
     // fetch all users
