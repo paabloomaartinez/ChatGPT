@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static("uploads"))
 
 
-/*===============INICIALIZAR MONGODB====================*/
+/*===============INICIALIZAR MONGODB====================
 db.createCollection('users', (err, collection) => {
     if (err) {
         console.error(err);

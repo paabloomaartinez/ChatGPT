@@ -20,53 +20,101 @@
             </ul>
           </div>
           <div class="content">
-            <h2>Fundamentos de Vue</h2>
-            <p>
-                Vue.js es un framework progresivo para la construcción de interfaces de usuario. Permite crear componentes reutilizables y construir aplicaciones web de una manera declarativa y eficiente.
-            </p>
-            <p>
-                Algunos conceptos fundamentales de Vue son:
-            </p>
-            <ul>
-                <li>
-                <strong>Componentes:</strong> Los componentes son bloques de construcción de Vue que encapsulan HTML, CSS y JavaScript para formar partes reutilizables y autónomas de una aplicación. Los componentes pueden tener su propio estado, propiedades y métodos.
-                </li>
-                <li>
-                <strong>Directivas:</strong> Las directivas son atributos especiales que se aplican a los elementos HTML para agregar comportamiento dinámico a la página. Ejemplos de directivas son v-bind, v-if y v-for.
-                </li>
-                <li>
-                <strong>Reactividad:</strong> Vue utiliza un sistema de reactividad para rastrear los cambios en los datos y actualizar automáticamente la interfaz de usuario. Esto significa que los cambios en los datos se reflejan de forma automática en la vista sin necesidad de manipulación manual del DOM.
-                </li>
-                <li>
-                <strong>Ciclo de vida:</strong> Los componentes de Vue tienen diferentes etapas de ciclo de vida, como la creación, montaje, actualización y destrucción. Estas etapas ofrecen ganchos de ciclo de vida que permiten ejecutar código en momentos específicos durante el ciclo de vida del componente.
-                </li>
-                <li>
-                <strong>Vue Router:</strong> Vue Router es la biblioteca de enrutamiento oficial de Vue.js. Permite crear rutas en la aplicación y asociarlas con componentes específicos para habilitar la navegación entre diferentes vistas.
-                </li>
-            </ul>
-            <p>
-                Para comenzar a construir una aplicación con Vue, se siguen estos pasos básicos:
-            </p>
-            <ol>
-                <li>
-                <strong>Instalación:</strong> Se debe incluir Vue.js en el proyecto. Esto se puede hacer descargando el archivo de Vue.js y agregándolo al proyecto, o utilizando un administrador de paquetes como npm o yarn para instalar Vue.js.
-                </li>
-                <li>
-                <strong>Creación del componente raíz:</strong> En el archivo HTML principal de la aplicación, se crea un contenedor donde se montará la aplicación Vue. Esto se hace utilizando la directiva v-app o seleccionando un elemento existente para convertirlo en el contenedor de la aplicación.
-                </li>
-                <li>
-                <strong>Definición de componentes:</strong> Se definen los componentes necesarios para la aplicación. Cada componente tiene su propio archivo con su estructura de HTML, CSS y JavaScript, y se pueden importar y utilizar dentro de otros componentes.
-                </li>
-                <li>
-                <strong>Instancia de Vue:</strong> Se crea una instancia de Vue en el archivo JavaScript principal de la aplicación, proporcionando opciones de configuración como el componente raíz, las rutas (si se utiliza Vue Router) y los datos iniciales.
-                </li>
-                <li>
-                <strong>Montaje:</strong> Finalmente, se monta la instancia de Vue en el contenedor especificado en el paso 2, lo que hace que la aplicación Vue se inicie y se muestre en el navegador.
-                </li>
-            </ol>
-            <p>
-                Esta es solo una introducción a los fundamentos de Vue y a los pasos básicos para crear una aplicación. Para obtener más información detallada sobre cada uno de estos aspectos, se recomienda consultar la documentación oficial de Vue.js.
-            </p>
+            <h1>Fundamentos de Vue.js</h1>
+            <p>Vue.js es un framework de JavaScript utilizado para construir interfaces de usuario interactivas y basadas en componentes. Está diseñado para ser fácil de usar y comprender, lo que lo convierte en una opción popular para el desarrollo web.</p>
+            <h2>Componentes</h2>
+            <p>En Vue.js, una aplicación se construye mediante la combinación de componentes reutilizables. Un componente es una instancia reutilizable y autónoma con su propia lógica, estado y vista. Los componentes pueden contener otros componentes, lo que permite crear una jerarquía de componentes compleja y modularizar el desarrollo de la interfaz de usuario.</p>
+            <h2>Instancia de Vue</h2>
+            <p>Cada componente de Vue.js es una instancia de Vue. Una instancia de Vue se crea mediante la invocación del constructor de Vue y se configura con opciones que definen el comportamiento del componente. Estas opciones incluyen el elemento raíz del componente, los datos, los métodos, las propiedades computadas, los eventos y los ciclos de vida del componente.</p>
+            <h2>Template</h2>
+            <p>El template define la estructura y la apariencia del componente en Vue.js. Se utiliza una sintaxis basada en HTML para describir la estructura del DOM y se pueden utilizar directivas, interpolaciones y expresiones para enlazar datos y manipular la interfaz de usuario de manera declarativa.</p>
+            <pre>
+              <code>
+                &lt;template&gt;
+                  &lt;div&gt;
+                    &lt;h3&gt;&#123;&#123; titulo &#125;&#125;&lt;/h3&gt;
+                    &lt;p&gt;&#123;&#123; mensaje &#125;&#125;&lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/template&gt;
+              </code>
+            </pre>
+            <h2>Datos y estado</h2>
+            <p>Los datos son propiedades que se definen en la instancia de Vue y que se utilizan para almacenar el estado del componente. Los datos pueden ser accedidos y modificados desde el template y se pueden enlazar de manera bidireccional, lo que significa que los cambios en los datos se reflejarán automáticamente en la interfaz de usuario y viceversa.</p>
+            <pre>
+              <code>
+                data() {
+                  return {
+                    titulo: 'Mi Aplicación Vue',
+                    mensaje: 'Hola Mundo!'
+                  };
+                }
+              </code>
+            </pre>
+            <h2>Directivas</h2>
+            <p>Las directivas son atributos especiales que se utilizan en los elementos del template para aplicar funcionalidad adicional al DOM. Las directivas más comunes en Vue.js incluyen v-model para enlazar datos a elementos de entrada, v-for para iterar sobre una lista de elementos y v-if para renderizar condicionalmente elementos en función de una expresión booleana.</p>
+            <pre>
+              <code>
+                &lt;input v-model="titulo" /&gt;
+                &lt;ul&gt;
+                  &lt;li v-for="item in lista"&gt;&#123;&#123; item &#125;&#125;&lt;/li&gt;
+                &lt;/ul&gt;
+                &lt;div v-if="mostrarMensaje"&gt;&#123;&#123; mensaje &#125;&#125;&lt;/div&gt;
+              </code>
+            </pre>
+            <h2>Ciclo de vida del componente</h2>
+            <p>Los componentes en Vue.js pasan por un ciclo de vida predefinido que consta de diferentes etapas, como la creación, montaje, actualización y destrucción del componente. Durante cada etapa del ciclo de vida, se ejecutan ganchos de ciclo de vida que permiten realizar acciones personalizadas, como inicializar datos, realizar llamadas a API externas o limpiar recursos.</p>
+            <pre>
+              <code>
+                created() {
+                  // Lógica personalizada al crear el componente
+                },
+                mounted() {
+                  // Lógica personalizada al montar el componente en el DOM
+                },
+                updated() {
+                  // Lógica personalizada al actualizar el componente
+                },
+                beforeDestroy() {
+                  // Lógica personalizada antes de destruir el componente
+                }
+              </code>
+            </pre>
+          </div>
+        </div>
+        <div class="questions">
+          <div v-for="(question, index) in preguntasGenerales.questions" :key="index" class="question" v-show="index === currentQuestionIndex">
+            <h2>{{ question.tipo }}</h2>
+            <div v-if="question.tipo === 'test'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="test-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <ul>
+                  <li v-for="(opcion, opcionIndex) in pregunta.opciones" :key="opcionIndex">
+                    <label>
+                      <input type="radio" :name="'pregunta'+preguntaIndex" :value="opcion" v-model="pregunta.respuesta">
+                      {{ opcion }}
+                    </label>
+                  </li>
+                </ul>
+                <button @click="corregirTest(preguntaIndex, pregunta.respuesta)">Corregir</button>
+              </div>
+            </div>
+            <div v-else-if="question.tipo === 'verdadero_falso'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="true-false-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <input type="text" v-model="pregunta.respuesta" placeholder="Ingresa tu respuesta">
+                <button @click="corregirVerdaderoFalso(pregunta, pregunta.respuesta)">Corregir</button>
+              </div>
+            </div>
+            <div v-else-if="question.tipo === 'completar_codigo'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="code-completion-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <code>{{ pregunta.codigo }}</code>
+                <div v-for="(respuesta, respuestaIndex) in pregunta.respuesta_correcta" :key="respuestaIndex">
+                  <input type="text" v-model="respuesta_usuario" placeholder="Ingresa tu respuesta">
+                  <button @click="corregirCompletarCodigo(pregunta, respuesta_usuario)">Enviar</button>                 
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -77,17 +125,23 @@
 </template>
 
 <script>
+import QUESTIONS from "../controllers/preguntasNiveles"
 export default {
   name: 'Fundamentos',
   data() {
     return {
       username: '',
       level: '',
-      niveles: []
+      niveles: [],
+      preguntasGenerales: {},
+      currentQuestionIndex: 0,
+      contador: 0,
+      respuesta_usuario: ''
     };
   },
   mounted() {
     this.obtenerDatos();
+    this.obtenerPreguntas();
   },
   methods: {
     obtenerDatos() {
@@ -99,16 +153,76 @@ export default {
         this.niveles = usuario[0].content
       }
     },
+    async obtenerPreguntas() {
+      this.preguntasGenerales = await QUESTIONS.getQuestions({"titulo":"fundamentos"})
+      console.log(this.preguntasGenerales)
+    },
     logout() {
       // Eliminar los datos del localStorage
       localStorage.clear();
 
       // Redirigir a la ruta "/logout"
       this.$router.push('/logout');
+    },
+
+    corregirTest(preguntaIndex, respuesta) {
+      const pregunta = this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas[preguntaIndex];
+      if (pregunta.opciones[pregunta.respuesta_correcta] == respuesta){
+        //mensaje que quieras q aparezca cuando cacie
+        console.log("correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo test acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+        
+      }
+      else {
+        console.log("incorrecto")
+        //mensaje que quiera q aparezca cuando falla
+      }
+
+    },
+    corregirVerdaderoFalso(pregunta, respuesta) {   
+      if (pregunta.respuesta_correcta == respuesta){
+        //mensaje de que ha acertado
+        console.log("Correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo verdadero/falso acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+      }
+      else {
+        //Mensaje de que ha fallado
+        console.log("Error")
+      }
+
+    },
+    corregirCompletarCodigo(pregunta, respuesta) {
+      for (let i = 0; i<pregunta.respuesta_correcta.length-1; i++){
+        if (pregunta.respuesta_correcta[i] == respuesta){
+        //mensaje de que ha acertado
+        console.log("Correcto")
+        this.contador++
+          
+        }
+        else {
+          if(i = pregunta.respuesta_correcta.length){
+            //Mensaje de que ha fallado
+            console.log("Error")
+          } 
+        }
+      }
     }
   }
 };
 </script>
+
 
 <style>
 .titulo {
@@ -143,13 +257,13 @@ header {
   list-style: none;
 }
 
-.userPage {
+userPage {
   display: flex;
+  flex-wrap: wrap; /* Agregamos flex-wrap: wrap para permitir el ajuste de elementos en varias líneas */
 }
 
 .menu {
   flex: 0 0 auto;
-  height: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-left: 1rem;
@@ -159,6 +273,12 @@ header {
 .content {
   flex: 1;
   margin-left: 10rem;
+  margin-bottom: 1rem; /* Agregamos margen inferior para separar el contenido del div questions */
+}
+
+.questions {
+  margin-left: 10rem; /* Mantenemos el mismo margen izquierdo que el div content */
+  margin-top: 1rem; /* Agregamos margen superior para separar el contenido del div content */
 }
 
 nav ul {
@@ -199,6 +319,24 @@ footer {
   pointer-events: none;
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.test-question {
+  margin-bottom: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.code-completion-question,
+.true-false-question {
+  margin-bottom: 10px;
 }
 </style>
   

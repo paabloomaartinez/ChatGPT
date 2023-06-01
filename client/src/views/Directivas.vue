@@ -49,6 +49,7 @@
             </p>
           </div>
         </div>
+        
       </main>
       <footer>
         <p>&copy; 2023 ChatGPT - Learning Vue</p>
