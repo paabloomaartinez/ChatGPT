@@ -101,15 +101,18 @@
             <div v-else-if="question.tipo === 'verdadero_falso'">
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="true-false-question">
                 <p>{{ pregunta.pregunta }}</p>
+                <input type="text" v-model="pregunta.respuesta" placeholder="Ingresa tu respuesta">
+                <button @click="corregirVerdaderoFalso(pregunta, pregunta.respuesta)">Corregir</button>
               </div>
-              <button @click="corregirVerdaderoFalso(pregunta)">Corregir</button>
             </div>
             <div v-else-if="question.tipo === 'completar_codigo'">
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="code-completion-question">
                 <p>{{ pregunta.pregunta }}</p>
                 <code>{{ pregunta.codigo }}</code>
-                <input type="text" v-model="pregunta.respuesta" placeholder="Ingresa tu respuesta">
-                <button @click="corregirCompletarCodigo(pregunta)">Enviar</button>
+                <div v-for="(respuesta, respuestaIndex) in pregunta.respuesta_correcta" :key="respuestaIndex">
+                  <input type="text" v-model="respuesta_usuario" placeholder="Ingresa tu respuesta">
+                  <button @click="corregirCompletarCodigo(pregunta, respuesta_usuario)">Enviar</button>                 
+                </div>
               </div>
             </div>
           </div>
@@ -131,7 +134,9 @@ export default {
       level: '',
       niveles: [],
       preguntasGenerales: {},
-      currentQuestionIndex: 0
+      currentQuestionIndex: 0,
+      contador: 0,
+      respuesta_usuario: ''
     };
   },
   mounted() {
@@ -159,19 +164,60 @@ export default {
       // Redirigir a la ruta "/logout"
       this.$router.push('/logout');
     },
+
     corregirTest(preguntaIndex, respuesta) {
       const pregunta = this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas[preguntaIndex];
-      console.log(pregunta)
-      pregunta.respondida = true;
-      pregunta.correcta = respuesta === pregunta.respuestaCorrecta;
+      if (pregunta.opciones[pregunta.respuesta_correcta] == respuesta){
+        //mensaje que quieras q aparezca cuando cacie
+        console.log("correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo test acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+        
+      }
+      else {
+        console.log("incorrecto")
+        //mensaje que quiera q aparezca cuando falla
+      }
+
     },
-    corregirVerdaderoFalso(pregunta) {
-      pregunta.respondida = true;
-      pregunta.correcta = pregunta.respuesta === pregunta.respuestaCorrecta;
+    corregirVerdaderoFalso(pregunta, respuesta) {   
+      if (pregunta.respuesta_correcta == respuesta){
+        //mensaje de que ha acertado
+        console.log("Correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo verdadero/falso acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+      }
+      else {
+        //Mensaje de que ha fallado
+        console.log("Error")
+      }
+
     },
-    corregirCompletarCodigo(pregunta) {
-      pregunta.respondida = true;
-      pregunta.correcta = pregunta.respuesta.trim() === pregunta.respuestaCorrecta.trim();
+    corregirCompletarCodigo(pregunta, respuesta) {
+      for (let i = 0; i<pregunta.respuesta_correcta.length-1; i++){
+        if (pregunta.respuesta_correcta[i] == respuesta){
+        //mensaje de que ha acertado
+        console.log("Correcto")
+        this.contador++
+          
+        }
+        else {
+          if(i = pregunta.respuesta_correcta.length){
+            //Mensaje de que ha fallado
+            console.log("Error")
+          } 
+        }
+      }
     }
   }
 };
