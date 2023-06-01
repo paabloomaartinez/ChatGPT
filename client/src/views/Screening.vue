@@ -129,7 +129,6 @@ export default {
       let user = JSON.parse(userData)
       let respuestasData = localStorage.getItem('respuestas')
       let nivel = await SCREENING.calculateLevel({'respuestas':JSON.parse(respuestasData)})
-      console.log(nivel.level)
       if (nivel.level == 'Principiante') {
         await API.setLevel(user[0].username, {'level':'Principiante', 'content':[
         { numero: 1, nombre: 'Fundamentos', enable: true},
