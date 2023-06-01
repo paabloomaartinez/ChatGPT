@@ -24,6 +24,12 @@ db.createCollection('users', (err, collection) => {
     }
 });
 
+setTimeout(function () {
+    const userData = require('/docker-entrypoint-initdb.d/users.json');
+    db.C.insertMany(userData);
+    console.log("Datos cargados a users");
+}, 5000); // 5000 ms = 5 s
+
 db.createCollection('screening', (err, collection) => {
     if (err) {
         console.error(err);

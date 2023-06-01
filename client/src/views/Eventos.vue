@@ -41,9 +41,10 @@
           </div>
         </div>
         <div class="questions">
-          <div v-for="(question, index) in preguntasGenerales.questions" :key="index" class="question" v-show="index === currentQuestionIndex">
-            <h2>{{ question.tipo }}</h2>
+          <div v-for="(question, index) in preguntasGenerales.questions" :key="index" class="question" v-show="index === currentQuestionIndex">          
             <div v-if="question.tipo === 'test'">
+              <h2>Preguntas tipo Test</h2>
+              <h3>Responde a las preguntas tipo test eligiendo la respuesta correcta</h3>
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="test-question">
                 <p>{{ pregunta.pregunta }}</p>
                 <ul>
@@ -54,23 +55,38 @@
                     </label>
                   </li>
                 </ul>
-                <button @click="corregirTest(preguntaIndex, pregunta.respuesta)">Corregir</button>
+                <button @click="corregirTest(preguntaIndex, pregunta.respuesta)" :disabled="pregunta.respuestaCorrecta == true">Corregir</button>
+                <p v-if="pregunta.respuestaCorrecta != null"> 
+                  {{ pregunta.respuestaCorrecta ? '¡Acierto!' : 'Incorrecto' }}
+                </p>
               </div>
             </div>
             <div v-else-if="question.tipo === 'verdadero_falso'">
+              <h2>Preguntas de Verdadero/Falso</h2>
+              <h3>Responde a las preguntas escribiendo "verdadero" o "falso"</h3>
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="true-false-question">
                 <p>{{ pregunta.pregunta }}</p>
                 <input type="text" v-model="respuestas[preguntaIndex]" placeholder="Ingresa tu respuesta">
-                <button @click="corregirVerdaderoFalso(pregunta, preguntaIndex)">Corregir</button>
+                <button @click="corregirVerdaderoFalso(pregunta, preguntaIndex)" :disabled="respuestaCorrecta[preguntaIndex] == true">Corregir</button>
+                <p v-if="respuestaCorrecta[preguntaIndex] != null"> 
+                  {{ respuestaCorrecta[preguntaIndex] ? '¡Acierto!' : 'Incorrecto' }}
+                </p>
               </div>
             </div>
             <div v-else-if="question.tipo === 'completar_codigo'">
+              <h2>Preguntas de completar codigo</h2>
+              <h3>Completa los siguientes codigos escribiendo en orden el cacho que falta en los ...
+                Aviso: Si da error en mayuscular prueba en minusculas.
+              </h3>
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="code-completion-question">
                 <p>{{ pregunta.pregunta }}</p>
                 <code>{{ pregunta.codigo }}</code>
                 <div v-for="(respuesta, respuestaIndex) in pregunta.respuesta_correcta" :key="respuestaIndex">
                   <input type="text" v-model="respuestas_usuario[preguntaIndex + '-' + respuestaIndex]" placeholder="Ingresa tu respuesta">
-                  <button @click="corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex)">Enviar</button>                 
+                  <button @click="corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex, respuesta)" :disabled="respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] == true">Enviar</button>
+                  <p v-if="respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] != null"> 
+                  {{ respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] ? '¡Acierto!' : 'Incorrecto' }}
+                </p>                 
                 </div>
               </div>
             </div>
@@ -85,6 +101,7 @@
 
 <script>
 import QUESTIONS from "../controllers/preguntasNiveles"
+import API from "../controllers/login"
 export default {
   name: 'Eventos',
   data() {
@@ -96,7 +113,8 @@ export default {
       currentQuestionIndex: 0,
       contador: 0,
       respuestas_usuario: {},
-      respuestas : []
+      respuestas : [],
+      respuestaCorrecta: {}
     };
   },
   mounted() {
@@ -122,61 +140,71 @@ export default {
     },
     async obtenerPreguntas() {
       this.preguntasGenerales = await QUESTIONS.getQuestions({"titulo":"eventos"})
-      console.log(this.preguntasGenerales)
     },
     corregirTest(preguntaIndex, respuesta) {
       const pregunta = this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas[preguntaIndex];
-      if (pregunta.opciones[pregunta.respuesta_correcta] == respuesta){
-        //mensaje que quieras q aparezca cuando cacie
-        console.log("correcto")
+      if (pregunta.opciones[pregunta.respuesta_correcta] == respuesta){   
         this.contador++
+        pregunta.respuestaCorrecta = true;
         if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
-          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
-          console.log("Todas las preguntas tipo test acertadas")
           this.contador = 0
           this.currentQuestionIndex++
+          
         } 
         
       }
       else {
-        console.log("incorrecto")
-        //mensaje que quiera q aparezca cuando falla
+        pregunta.respuestaCorrecta = false;
       }
 
     },
     corregirVerdaderoFalso(pregunta, preguntaIndex) {   
       if (pregunta.respuesta_correcta == this.respuestas[preguntaIndex]){
-        //mensaje de que ha acertado
-        console.log("Correcto")
         this.contador++
+        this.respuestaCorrecta[preguntaIndex] = true;
         if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
-          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
-          console.log("Todas las preguntas tipo verdadero/falso acertadas")
           this.contador = 0
           this.currentQuestionIndex++
         } 
       }
       else {
-        //Mensaje de que ha fallado
-        console.log("Error")
+
+        this.respuestaCorrecta[preguntaIndex] = false;
       }
 
     },
-    corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex) {
+    corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex, respuesta) {
       const respuesta_usuario = this.respuestas_usuario[preguntaIndex + '-' + respuestaIndex];
-      console.log(preguntaIndex + '-' + respuestaIndex)
         if (pregunta.respuesta_correcta.includes(respuesta_usuario)) {
-          // Mensaje de que ha acertado
-          console.log("Correcto");
+          this.respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] = true;
           this.contador++
           if (this.contador == this.preguntasGenerales.respuestas_posibles){
-            //Lo que quieras hacer cuando haya acertado todas
+            this.subirNivel()
+            this.$router.push('/Directivas')
           }
           
         } else {
-         // Mensaje de que ha fallado
-          console.log("Error");
+          this.respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] = false;
         }
+    },
+    async subirNivel() {
+      let userData = localStorage.getItem('user')
+      let user = JSON.parse(userData)
+      await API.setLevel(user[0].username, {'level':"Principiante",'content':[
+        { numero: 1, nombre: 'Fundamentos', enable: true},
+        { numero: 2, nombre: 'Directivas', enable: true },
+        { numero: 3, nombre: 'Metodos', enable: false },
+        { numero: 4, nombre: 'Eventos', enable: false },
+        { numero: 5, nombre: 'Componentes', enable: false },
+        { numero: 6, nombre: 'Plantillas', enable: false },
+        { numero: 7, nombre: 'Routing', enable: false },
+        { numero: 8, nombre: 'Watchers', enable: false },
+        { numero: 9, nombre: 'Animation', enable: false },
+        { numero: 10, nombre: 'Build', enable: false },
+        { numero: 11, nombre: 'Deployment', enable: false }
+      ]})
+      let newUser = await API.getUserById(user[0].username)
+      localStorage.setItem('user', JSON.stringify(newUser))
     }
   }
 };
