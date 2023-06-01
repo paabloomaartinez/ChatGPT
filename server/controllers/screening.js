@@ -1,5 +1,10 @@
 const mongojs = require('mongojs')
-const db = mongojs('mongodb://mongo:27017/hads_app_vue', ['screening'])
+
+/*dockerizado*/
+//const db = mongojs('mongodb://mongo:27017/hads_app_vue', ['screening'])
+
+/*dev*/
+const db = mongojs('mongodb://127.0.0.1:27017/hads_app_vue', ['screening'])
 
 module.exports = class SCREENING {
     // fetch all questions

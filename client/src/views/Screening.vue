@@ -6,6 +6,7 @@
     <main>
       <div class="screening-page">
         <div v-if="preguntas.length > 0">
+          <div class="pregunta-numero">{{ preguntaActual + 1 }}/{{ preguntas.length }}</div>
           <h2>{{ preguntaActualData.pregunta }}</h2>
           <div>
             <div v-for="(opcion, index) in preguntaActualData.opciones" :key="index">
@@ -36,6 +37,7 @@
     </footer>
   </div>
 </template>
+
 
 <script>
 import SCREENING from '../controllers/screening';
@@ -246,5 +248,10 @@ button:disabled {
 .error {
     color: red;
   }
+  .pregunta-numero {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
 
 </style>
