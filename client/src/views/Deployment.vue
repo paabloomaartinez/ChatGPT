@@ -189,32 +189,12 @@ export default {
           this.respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] = true;
           this.contador++
           if (this.contador == this.preguntasGenerales.respuestas_posibles){
-            this.subirNivel()
-            this.$router.push('/Directivas')
+            this.$router.push('/userPage')
           }
           
         } else {
           this.respuestaCorrecta[preguntaIndex + '-' + respuestaIndex] = false;
         }
-    },
-    async subirNivel() {
-      let userData = localStorage.getItem('user')
-      let user = JSON.parse(userData)
-      await API.setLevel(user[0].username, {'level':"Principiante",'content':[
-        { numero: 1, nombre: 'Fundamentos', enable: true},
-        { numero: 2, nombre: 'Directivas', enable: true },
-        { numero: 3, nombre: 'Metodos', enable: false },
-        { numero: 4, nombre: 'Eventos', enable: false },
-        { numero: 5, nombre: 'Componentes', enable: false },
-        { numero: 6, nombre: 'Plantillas', enable: false },
-        { numero: 7, nombre: 'Routing', enable: false },
-        { numero: 8, nombre: 'Watchers', enable: false },
-        { numero: 9, nombre: 'Animation', enable: false },
-        { numero: 10, nombre: 'Build', enable: false },
-        { numero: 11, nombre: 'Deployment', enable: false }
-      ]})
-      let newUser = await API.getUserById(user[0].username)
-      localStorage.setItem('user', JSON.stringify(newUser))
     }
   }
 };

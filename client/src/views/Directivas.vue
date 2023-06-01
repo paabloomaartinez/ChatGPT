@@ -189,7 +189,7 @@ export default {
           this.contador++
           if (this.contador == this.preguntasGenerales.respuestas_posibles){
             this.subirNivel()
-            this.$router.push('/Directivas')
+            this.$router.push('/Metodos')
           }
           
         } else {
@@ -199,10 +199,10 @@ export default {
     async subirNivel() {
       let userData = localStorage.getItem('user')
       let user = JSON.parse(userData)
-      await API.setLevel(user[0].username, {'level':"Principiante",'content':[
+      await API.setLevel(user[0].username, {'level':"Intermedio",'content':[
         { numero: 1, nombre: 'Fundamentos', enable: true},
         { numero: 2, nombre: 'Directivas', enable: true },
-        { numero: 3, nombre: 'Metodos', enable: false },
+        { numero: 3, nombre: 'Metodos', enable: true },
         { numero: 4, nombre: 'Eventos', enable: false },
         { numero: 5, nombre: 'Componentes', enable: false },
         { numero: 6, nombre: 'Plantillas', enable: false },
