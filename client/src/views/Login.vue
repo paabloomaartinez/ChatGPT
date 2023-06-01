@@ -5,7 +5,7 @@
     </header>
     <main>
       <div class="login-page">
-        <h1>Login</h1>
+        <h1 class="login-title">Login</h1>
         <form>
           <label>
             Nombre de usuario:
@@ -15,9 +15,14 @@
             Contraseña:
             <input type="password" v-model="password" required>
           </label>
-          <button type="submit" @click.prevent="login">Log In</button>
+          <div class="login-button">
+            <button type="submit" @click.prevent="login">Log In</button>
+          </div>
+          
           <div v-if="error" class="error">{{ error }}</div>
-          <div>¿Aún no estás registrado? <router-link to="/register">Regístrate aquí</router-link></div>
+          <div>
+            <p class="pregunta-registrar">¿Aún no estás registrado? </p>
+            <router-link to="/register" class="registrar">Regístrate aquí</router-link></div>
         </form>
       </div>
     </main>
@@ -62,8 +67,8 @@
   };
   </script>
   
-  <style scoped>
-  .titulo {
+<style scoped>
+.titulo {
   text-decoration: none;
   color: white;
 }
@@ -78,15 +83,20 @@
   flex-direction: column;
   min-height: 100vh;
   font-family: sans-serif;
+  background: linear-gradient(to bottom right, #afe4cc, #cbe9db);
 }
 
 header {
-  background-color: #333;
+  background-color: #2e373f;
   color: white;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+footer {
+  background-color: #2e373f;
 }
 
 nav ul {
@@ -116,49 +126,130 @@ main {
   padding: 1rem;
 }
 
-footer {
-  background-color: #333;
-  color: white;
-  padding: 1rem;
-  text-align: center;
+.login-page {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #d7faee9a;
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 7px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  animation: dropdown 1s ease-out;
 }
-  .login-page {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
+}
   
-  label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    padding: 0.5rem;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  font-size: 1rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 button[type="submit"] {
   padding: 0.5rem;
-  background-color: #333;
+  background-color: #2e373f;
   color: white;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4e575f;
+}
+
+button:active {
+  background-color: #1d2124;
+}
+
+.login-title {
+  color: #2e373f;
+  display: flex;
+  font-size: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pregunta-registrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registrar {
+  color: rgb(33, 108, 170);
+  font-size: 1rem;
+  text-decoration:underline;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
 }
 
 .error {
   color: red;
+  animation: rumble 1s;
 }
+
+@keyframes rumble {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(8px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-8px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
 </style>  
