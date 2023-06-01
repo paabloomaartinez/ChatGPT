@@ -101,8 +101,8 @@
             <div v-else-if="question.tipo === 'verdadero_falso'">
               <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="true-false-question">
                 <p>{{ pregunta.pregunta }}</p>
-                <input type="text" v-model="pregunta.respuesta" placeholder="Ingresa tu respuesta">
-                <button @click="corregirVerdaderoFalso(pregunta, pregunta.respuesta)">Corregir</button>
+                <input type="text" v-model="respuestas[preguntaIndex]" placeholder="Ingresa tu respuesta">
+                <button @click="corregirVerdaderoFalso(pregunta, preguntaIndex)">Corregir</button>
               </div>
             </div>
             <div v-else-if="question.tipo === 'completar_codigo'">
@@ -110,13 +110,14 @@
                 <p>{{ pregunta.pregunta }}</p>
                 <code>{{ pregunta.codigo }}</code>
                 <div v-for="(respuesta, respuestaIndex) in pregunta.respuesta_correcta" :key="respuestaIndex">
-                  <input type="text" v-model="respuesta_usuario" placeholder="Ingresa tu respuesta">
-                  <button @click="corregirCompletarCodigo(pregunta, respuesta_usuario)">Enviar</button>                 
+                  <input type="text" v-model="respuestas_usuario[preguntaIndex + '-' + respuestaIndex]" placeholder="Ingresa tu respuesta">
+                  <button @click="corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex)">Enviar</button>                 
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
       </main>
       <footer>
         <p>&copy; 2023 ChatGPT - Learning Vue</p>
@@ -136,7 +137,8 @@ export default {
       preguntasGenerales: {},
       currentQuestionIndex: 0,
       contador: 0,
-      respuesta_usuario: ''
+      respuestas_usuario: {},
+      respuestas : []
     };
   },
   mounted() {
@@ -185,8 +187,8 @@ export default {
       }
 
     },
-    corregirVerdaderoFalso(pregunta, respuesta) {   
-      if (pregunta.respuesta_correcta == respuesta){
+    corregirVerdaderoFalso(pregunta, preguntaIndex) {   
+      if (pregunta.respuesta_correcta == this.respuestas[preguntaIndex]){
         //mensaje de que ha acertado
         console.log("Correcto")
         this.contador++
@@ -203,21 +205,21 @@ export default {
       }
 
     },
-    corregirCompletarCodigo(pregunta, respuesta) {
-      for (let i = 0; i<pregunta.respuesta_correcta.length-1; i++){
-        if (pregunta.respuesta_correcta[i] == respuesta){
-        //mensaje de que ha acertado
-        console.log("Correcto")
-        this.contador++
+    corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex) {
+      const respuesta_usuario = this.respuestas_usuario[preguntaIndex + '-' + respuestaIndex];
+      console.log(preguntaIndex + '-' + respuestaIndex)
+        if (pregunta.respuesta_correcta.includes(respuesta_usuario)) {
+          // Mensaje de que ha acertado
+          console.log("Correcto");
+          this.contador++
+          if (this.contador == this.preguntasGenerales.respuestas_posibles){
+            //Lo que quieras hacer cuando haya acertado todas
+          }
           
+        } else {
+         // Mensaje de que ha fallado
+          console.log("Error");
         }
-        else {
-          if(i = pregunta.respuesta_correcta.length){
-            //Mensaje de que ha fallado
-            console.log("Error")
-          } 
-        }
-      }
     }
   }
 };

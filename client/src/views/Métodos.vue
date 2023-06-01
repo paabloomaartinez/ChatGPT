@@ -39,6 +39,42 @@
             <p>El objeto <code>watch</code> permite realizar un seguimiento de los cambios en los datos reactivos y ejecutar funciones en respuesta a esos cambios. Puedes observar cambios específicos en propiedades y realizar tareas adicionales, como realizar solicitudes HTTP o actualizar otras propiedades.</p>
           </div>
         </div>
+        <div class="questions">
+          <div v-for="(question, index) in preguntasGenerales.questions" :key="index" class="question" v-show="index === currentQuestionIndex">
+            <h2>{{ question.tipo }}</h2>
+            <div v-if="question.tipo === 'test'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="test-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <ul>
+                  <li v-for="(opcion, opcionIndex) in pregunta.opciones" :key="opcionIndex">
+                    <label>
+                      <input type="radio" :name="'pregunta'+preguntaIndex" :value="opcion" v-model="pregunta.respuesta">
+                      {{ opcion }}
+                    </label>
+                  </li>
+                </ul>
+                <button @click="corregirTest(preguntaIndex, pregunta.respuesta)">Corregir</button>
+              </div>
+            </div>
+            <div v-else-if="question.tipo === 'verdadero_falso'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="true-false-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <input type="text" v-model="respuestas[preguntaIndex]" placeholder="Ingresa tu respuesta">
+                <button @click="corregirVerdaderoFalso(pregunta, preguntaIndex)">Corregir</button>
+              </div>
+            </div>
+            <div v-else-if="question.tipo === 'completar_codigo'">
+              <div v-for="(pregunta, preguntaIndex) in question.preguntas" :key="preguntaIndex" class="code-completion-question">
+                <p>{{ pregunta.pregunta }}</p>
+                <code>{{ pregunta.codigo }}</code>
+                <div v-for="(respuesta, respuestaIndex) in pregunta.respuesta_correcta" :key="respuestaIndex">
+                  <input type="text" v-model="respuestas_usuario[preguntaIndex + '-' + respuestaIndex]" placeholder="Ingresa tu respuesta">
+                  <button @click="corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex)">Enviar</button>                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
       <footer>
         <p>&copy; 2023 ChatGPT - Learning Vue</p>
@@ -47,17 +83,24 @@
 </template>
 
 <script>
+import QUESTIONS from "../controllers/preguntasNiveles"
 export default {
   name: 'Métodos',
   data() {
     return {
       username: '',
       level: '',
-      niveles: []
+      niveles: [],
+      preguntasGenerales: {},
+      currentQuestionIndex: 0,
+      contador: 0,
+      respuestas_usuario: {},
+      respuestas : []
     };
   },
   mounted() {
     this.obtenerDatos();
+    this.obtenerPreguntas();
   },
   methods: {
     obtenerDatos() {
@@ -75,6 +118,64 @@ export default {
 
       // Redirigir a la ruta "/logout"
       this.$router.push('/logout');
+    },
+    async obtenerPreguntas() {
+      this.preguntasGenerales = await QUESTIONS.getQuestions({"titulo":"metodos"})
+      console.log(this.preguntasGenerales)
+    },
+    corregirTest(preguntaIndex, respuesta) {
+      const pregunta = this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas[preguntaIndex];
+      if (pregunta.opciones[pregunta.respuesta_correcta] == respuesta){
+        //mensaje que quieras q aparezca cuando cacie
+        console.log("correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo test acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+        
+      }
+      else {
+        console.log("incorrecto")
+        //mensaje que quiera q aparezca cuando falla
+      }
+
+    },
+    corregirVerdaderoFalso(pregunta, preguntaIndex) {   
+      if (pregunta.respuesta_correcta == this.respuestas[preguntaIndex]){
+        //mensaje de que ha acertado
+        console.log("Correcto")
+        this.contador++
+        if (this.preguntasGenerales.questions[this.currentQuestionIndex].preguntas.length == this.contador){
+          //Hacer que cargen las siguientes preguntas de otro tipo y bloquear la pregunta respondida
+          console.log("Todas las preguntas tipo verdadero/falso acertadas")
+          this.contador = 0
+          this.currentQuestionIndex++
+        } 
+      }
+      else {
+        //Mensaje de que ha fallado
+        console.log("Error")
+      }
+
+    },
+    corregirCompletarCodigo(pregunta, preguntaIndex, respuestaIndex) {
+      const respuesta_usuario = this.respuestas_usuario[preguntaIndex + '-' + respuestaIndex];
+      console.log(preguntaIndex + '-' + respuestaIndex)
+        if (pregunta.respuesta_correcta.includes(respuesta_usuario)) {
+          // Mensaje de que ha acertado
+          console.log("Correcto");
+          this.contador++
+          if (this.contador == this.preguntasGenerales.respuestas_posibles){
+            //Lo que quieras hacer cuando haya acertado todas
+          }
+          
+        } else {
+         // Mensaje de que ha fallado
+          console.log("Error");
+        }
     }
   }
 };
