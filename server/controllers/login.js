@@ -1,5 +1,5 @@
 const mongojs = require('mongojs')
-const db = mongojs('mongodb://127.0.0.1:27017/hads_app_vue', ['users'])
+const db = mongojs('mongodb://mongo:27017/hads_app_vue', ['users'])
 
 module.exports = class API {
     // fetch all users
@@ -43,12 +43,12 @@ module.exports = class API {
 
     static setLevel(req, res) {
         db.users.findAndModify({
-            query: {'username': req.params.id},
-            update: {$set: {'level': req.body.level, 'content': req.body.content}}
+            query: { 'username': req.params.id },
+            update: { $set: { 'level': req.body.level, 'content': req.body.content } }
         }, (err, docs) => {
-            if(err){
+            if (err) {
                 res.send(err)
-            }else{
+            } else {
                 res.status(200).json(docs)
             }
         })
