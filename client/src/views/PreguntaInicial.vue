@@ -5,9 +5,11 @@
     </header>
     <main>
         <div class="pregunta-inicial-page">
-        <h1>¿Has utilizado Vue.js alguna vez?</h1>
-        <button @click="redirectToScreening">Si</button>
-        <button @click="redirectToNoVue">No</button>
+          <h1 class="utilizado-title">¿Has utilizado Vue.js alguna vez?</h1>
+          <div class="si-no-buttons">
+            <button @click="redirectToScreening">Si</button>
+            <button @click="redirectToNoVue">No</button>
+          </div>
         </div>
     </main>
     <footer>
@@ -60,31 +62,29 @@ color: white;
 }
 
 .base-wireframe {
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom right, #afe4cc, #cbe9db);
 }
 
 header {
-background-color: #333;
-color: white;
-padding: 1rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-main {
-flex: 1;
-padding: 1rem;
+  background-color: #2e373f !important;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 footer {
-background-color: #333;
-color: white;
-padding: 1rem;
-text-align: center;
+  background-color: #2e373f !important;
+}
+
+main {
+  flex: 1;
+  padding: 1rem;
 }
 
 .pregunta-inicial-page {
@@ -94,19 +94,48 @@ text-align: center;
   padding: 2rem;
   max-width: 515px;
   margin: 0 auto;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  background-color: #d7faee9a;
+  border: 1px solid #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 7px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  animation: dropdown 1s ease-out;
+}
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 
 button {
+  width: 300px;
   margin-top: 10px;
   margin-right: 10px;
   padding: 0.5rem;
-  background-color: #333;
+  background-color: #2e373f;
+  font-size: 1rem;
   color: white;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.utilizado-title {
+  color: #2e373f;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.si-no-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
   
